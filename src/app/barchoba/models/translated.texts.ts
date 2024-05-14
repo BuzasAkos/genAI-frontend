@@ -6,6 +6,7 @@ export const translatedTexts = [
     {en: 'Guess', hu: 'Tipp'},
     {en: 'Send Question', hu: 'Kérdés Küldése'},
     {en: 'Next Question', hu: 'Következő Kérdés'},
+    {en: 'Send Guess', hu: 'Tipp Küldése'},
     {en: 'I give up', hu: 'Szabad a gazda'},
     {en: 'Final Guess', hu: 'Rákérdezek'},
     {en: 'Start a New Game', hu: 'Új Játék Indítása'},

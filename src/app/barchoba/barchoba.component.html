@@ -31,7 +31,7 @@
                 <input type="text" id="guess" class="form-input" formControlName="guessInput"
                     placeholder="Enter the name" value="">
             </span>
-            <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">Send Guess »</button>
+            <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">{{translate('Send Guess')}} »</button>
             </div>
         </form>
         <div class="form-group-row">
