@@ -1,9 +1,9 @@
 <div class="header">
-    <span class="home-icon" (click)="homeButtonClicked()">« {{translate('Home')}}</span>
+    <span class="home-icon" (click)="homeButtonClicked()">{{translate('Home')}}</span>
     <span class="header-txt">{{translate('AI Barchoba Game')}}</span>
     <select class="lang-select" (change)="setLanguage($event)">
-        <option value="en">EN</option>
-        <option value="hu">HU</option>
+        <option value="en" [selected]="selectedLanguage === 'en'">en</option>
+        <option value="hu" [selected]="selectedLanguage === 'hu'">hu</option>
     </select>
 </div>
 

@@ -15,7 +15,6 @@ body {
     height: 50px;
     width: 100%;
     
-
     .form-label {
         width: 60px;
         color: black;
@@ -23,6 +22,7 @@ body {
 
     .form-input {
         max-width: 350px;
+        min-width: 80px;
         flex: 1;
         height: 25px;
         padding: 5px;
@@ -34,6 +34,7 @@ body {
 
     .form-answer {
         max-width: 362px;
+        min-width: 82px;
         flex: 1;
         font-size: 16px;
         font-weight: bold;
@@ -49,7 +50,7 @@ body {
         border-color: darkslateblue;
         background-color: darkslateblue;
         color: white;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: normal;
         cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -83,7 +84,7 @@ body {
         border-color: gray;
         background-color: gray;
         color: white;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: normal;
         cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -119,7 +120,7 @@ body {
         border-color: darkgreen;
         background-color: white;
         color: darkgreen;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: normal;
         cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -154,7 +155,7 @@ body {
         border-color: darkred;
         background-color: white;
         color: darkred;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: normal;
         cursor: pointer;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

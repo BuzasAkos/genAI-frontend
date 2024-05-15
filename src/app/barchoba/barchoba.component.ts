@@ -20,14 +20,15 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
   popupMessage: string = '';
   showPopup: boolean = false;
   exitMsg: string = '';
-  language: string = 'en';
+  selectedLanguage: string;
   
-  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder) {}
+  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder) {
+    this.selectedLanguage = this.barchobaService.loadLanguage();
+  }
 
   ngOnInit(): void {
     this.initForms();
     this.loadCurrentGame();
-    this.language = this.barchobaService.loadLanguage();
   }
 
   ngAfterViewInit(): void {
@@ -180,9 +181,8 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
   }
 
   setLanguage(event: Event) {
-    this.language = (event.target as HTMLSelectElement).value;
-    console.log(this.language);
-    this.barchobaService.setLanguage(this.language);
+    this.selectedLanguage = (event.target as HTMLSelectElement).value;
+    this.barchobaService.setLanguage(this.selectedLanguage);
     console.log(this.barchobaService.getLanguage());
   }
 
