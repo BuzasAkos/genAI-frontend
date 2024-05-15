@@ -8,12 +8,10 @@
     <div class="question-form-container" *ngIf="status === 'question' || status === 'sent' || status === 'answered'">
         <form [formGroup]="questionForm" (ngSubmit)="submitForm()">
             <div class="form-group-row">
-            <label for="question" class="form-label">{{translate('Question')}}:</label>
-            <span>
+                <label for="question" class="form-label">{{translate('Question')}}:</label>
                 <input #inputField type="text" id="question" class="form-input" formControlName="questionInput"
-                    placeholder="{{translate('Enter your question (4-40 characters)')}}" value="">
-            </span>
-            <button type="submit" class="send-button" [disabled]="questionForm.invalid || status !== 'question'">{{translate('Send Question')}} »</button>
+                        placeholder="{{translate('Enter your question (4-40 characters)')}}" value="">
+                <button type="submit" class="send-button" [disabled]="questionForm.invalid || status !== 'question'">{{translate('Send Question')}} »</button>
             </div>
         </form>
         <div class="form-group-row">
@@ -27,10 +25,8 @@
         <form [formGroup]="guessForm" (ngSubmit)="submitGuess()">
             <div class="form-group-row">
             <label for="guess" class="form-label">{{translate('Guess')}}:</label>
-            <span>
-                <input type="text" id="guess" class="form-input" formControlName="guessInput"
+            <input type="text" id="guess" class="form-input" formControlName="guessInput"
                     placeholder="Enter the name" value="">
-            </span>
             <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">{{translate('Send Guess')}} »</button>
             </div>
         </form>
@@ -63,12 +59,12 @@
     </div>    
 </div>
 
-<div class="home-image" *ngIf="status === 'not started'">
-    <img src="../../assets/ovXAM3c.png" alt="">
+<div class="home-image-container" *ngIf="status === 'not started'">
+    <img src="../../assets/ovXAM3c.png" alt="" class="home-image">
 </div>
 
 <div class="chat-history" *ngIf="status !== 'not started' && status !== 'starting'">
-    <div class="msg-gallery" *ngFor="let msg of messages">
+    <div class="msg-gallery" #chatHistory *ngFor="let msg of messages">
         <div class="question" *ngIf="msg.role === 'user'">
             <span class="question-label">
                 {{translate('Question')}}:  

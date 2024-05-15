@@ -20,7 +20,8 @@ body {
     }
 
     .form-input {
-        width: 350px;
+        max-width: 350px;
+        flex: 1;
         height: 25px;
         padding: 5px;
         border: solid;
@@ -30,7 +31,8 @@ body {
     }
 
     .form-answer {
-        width: 362px;
+        max-width: 362px;
+        flex: 1;
         font-size: 16px;
         font-weight: bold;
         color: black;

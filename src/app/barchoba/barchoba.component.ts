@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
@@ -8,9 +8,9 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './barchoba.component.html',
   styleUrl: './barchoba.component.scss'
 })
-export class BarchobaComponent implements OnInit {
+export class BarchobaComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('inputField') inputField!: ElementRef;
+  @ViewChild('chatHisrory') chatHistory!: ElementRef;
   
   messages: {role: string, content: string}[] = []; 
   questionForm!: FormGroup;
@@ -27,6 +27,10 @@ export class BarchobaComponent implements OnInit {
     this.initForms();
     this.loadCurrentGame();
     this.barchobaService.getLanguage();
+  }
+
+  ngAfterViewInit(): void {
+    this.chatScrollDown();
   }
 
   initForms() {
@@ -86,6 +90,10 @@ export class BarchobaComponent implements OnInit {
         this.status = "answered";
       })
     }
+  }
+
+  chatScrollDown() {
+    this.chatHistory.nativeElement.scrollTop = this.chatHistory.nativeElement.scrollHeight;
   }
 
   resetForm() {

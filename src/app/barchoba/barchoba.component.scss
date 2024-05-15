@@ -31,16 +31,20 @@
     }
 }
 
-.home-image {
-    position: fixed;
-    top: 100px;
-    height: calc(100% - 120px);
-    width: 100%;
+.home-image-container {
+    margin-top: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    background-color: beige;
     z-index: -1;
+
+    .home-image {
+        height: auto;
+        max-width: 100%;
+        justify-items: center;
+    }
 }
 
 .form-containers {
@@ -81,13 +85,13 @@
     position: fixed;
     top: 225px;
     bottom: 10px;
-    width: calc(100% - 40px);
-    overflow-y: scroll;
+    width: calc(100% - 20px);
+    overflow-y: auto;
     border: none;
     border-radius: 8px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 
     .msg-gallery {
         margin-left: 20px;
