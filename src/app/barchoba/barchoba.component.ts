@@ -10,7 +10,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 })
 export class BarchobaComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('chatHisrory') chatHistory!: ElementRef;
+  @ViewChild('chatHistory') chatHistory!: ElementRef;
   
   messages: {role: string, content: string}[] = []; 
   questionForm!: FormGroup;
@@ -20,17 +20,18 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
   popupMessage: string = '';
   showPopup: boolean = false;
   exitMsg: string = '';
+  language: string = 'en';
   
   constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForms();
     this.loadCurrentGame();
-    this.barchobaService.getLanguage();
+    this.language = this.barchobaService.loadLanguage();
   }
 
   ngAfterViewInit(): void {
-    this.chatScrollDown();
+    // this.chatScrollDown();
   }
 
   initForms() {
@@ -176,6 +177,13 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
 
   translate(txt: string): string {
     return this.barchobaService.translator(txt);
+  }
+
+  setLanguage(event: Event) {
+    this.language = (event.target as HTMLSelectElement).value;
+    console.log(this.language);
+    this.barchobaService.setLanguage(this.language);
+    console.log(this.barchobaService.getLanguage());
   }
 
 }

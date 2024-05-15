@@ -25,7 +25,7 @@ export class BarchobaService {
   }
 
   setLanguage(lang: string) {
-    if (lang in ['en', 'hu']) {
+    if (['en', 'hu'].includes(lang)) {
       this.language = lang;
       localStorage.setItem('barchobaLanguage', lang);
     }
@@ -34,7 +34,7 @@ export class BarchobaService {
   loadLanguage() {
     const lang = localStorage.getItem('barchobaLanguage');
     if (lang) {
-      lang in ['en', 'hu'] ? this.language = lang : this.language = 'en';
+      ['en', 'hu'].includes(lang) ? this.language = lang : this.language = 'en';
     }
     return this.language;
   }

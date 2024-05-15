@@ -1,6 +1,10 @@
 <div class="header">
     <span class="home-icon" (click)="homeButtonClicked()">« {{translate('Home')}}</span>
     <span class="header-txt">{{translate('AI Barchoba Game')}}</span>
+    <select class="lang-select" (change)="setLanguage($event)">
+        <option value="en">EN</option>
+        <option value="hu">HU</option>
+    </select>
 </div>
 
 <div class="form-containers">
@@ -11,13 +15,13 @@
                 <label for="question" class="form-label">{{translate('Question')}}:</label>
                 <input #inputField type="text" id="question" class="form-input" formControlName="questionInput"
                         placeholder="{{translate('Enter your question (4-40 characters)')}}" value="">
-                <button type="submit" class="send-button" [disabled]="questionForm.invalid || status !== 'question'">{{translate('Send Question')}} »</button>
+                <button type="submit" class="send-button" [disabled]="questionForm.invalid || status !== 'question'">{{translate('Send Question')}}</button>
             </div>
         </form>
         <div class="form-group-row">
             <span class="form-label">{{translate('Answer')}}:</span>
             <span class="form-answer">{{answer}}</span>
-            <button class="send-button" (click)="resetForm()" [disabled]="status !== 'answered'">{{translate('Next Question')}} »</button>
+            <button class="send-button" (click)="resetForm()" [disabled]="status !== 'answered'">{{translate('Next Question')}}</button>
         </div>
     </div>
 
@@ -63,8 +67,8 @@
     <img src="../../assets/ovXAM3c.png" alt="" class="home-image">
 </div>
 
-<div class="chat-history" *ngIf="status !== 'not started' && status !== 'starting'">
-    <div class="msg-gallery" #chatHistory *ngFor="let msg of messages">
+<div class="chat-history" #chatHistory *ngIf="status !== 'not started' && status !== 'starting'">
+    <div class="msg-gallery" *ngFor="let msg of messages">
         <div class="question" *ngIf="msg.role === 'user'">
             <span class="question-label">
                 {{translate('Question')}}:  

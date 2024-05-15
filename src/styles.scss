@@ -9,13 +9,15 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     height: 50px;
     width: 100%;
     
 
     .form-label {
-        width: 80px;
+        width: 60px;
         color: black;
     }
 
@@ -110,7 +112,7 @@ body {
     .guess-button {
         width: 160px;
         height: 35px;
-        margin-left: 20px;
+        margin-left: 10px;
         border-radius: 4px;
         border: solid;
         border-width: 1px;
