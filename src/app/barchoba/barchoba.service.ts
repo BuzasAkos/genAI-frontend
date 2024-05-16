@@ -58,6 +58,22 @@ export class BarchobaService {
     return this.http.get<any>(url);
   }
 
+  buildChat(msg: {role: string, content: string}[]) {
+    const chatBuilt: {question: string, answer: string}[] = [];
+    let question: string;
+    let answer: string;
+    msg.forEach( (item) => {
+      if (item.role === 'user') {
+        question = item.content;
+      }
+      if (item.role === 'assistant') {
+        answer = item.content;
+        chatBuilt.unshift({question, answer});
+      }
+    });
+    return chatBuilt;
+  }
+
   newGame() {
     const url = `${this.baseUrl}/barchoba/new`;
     return this.http.post<any>(url,{});

@@ -105,42 +105,33 @@
     margin-right: 10px;
 
     .msg-gallery {
-        margin-left: 20px;
+        margin-left: 10px;
         font-size: 16px;
     }
+
 }
 
-.question {
-    margin-top: 15px;
+.chat-round {
+    max-width: 600px;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
-
-    .question-label {
-        color: darkslateblue;
-        width: 80px;
-    }
+    flex-wrap: wrap;
+    border: solid;
+    border-color: white;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     .question-content {
         color: darkslateblue;
-        font-weight: 600;
-        flex: 1;
-    }
-}
-
-.answer {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: row;
-
-    .answer-label {
-        color: darkslategray;
-        width: 80px;
+        width: 360px;
     }
 
     .answer-content {
         color: darkslategray;
-        font-weight: bold;
-        flex: 1;
+        width: fit-content
     }
 }
 

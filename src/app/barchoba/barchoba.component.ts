@@ -12,7 +12,7 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
 
   @ViewChild('chatHistory') chatHistory!: ElementRef;
   
-  messages: {role: string, content: string}[] = []; 
+  chat: {question: string, answer: string}[] = [];
   questionForm!: FormGroup;
   guessForm!: FormGroup;
   answer: string = "";
@@ -53,7 +53,7 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
           this.barchobaService.setGameID('');
           return;
         }
-        this.messages = resp;
+        this.chat = this.barchobaService.buildChat(resp);
         this.answer = '';
         this.status = 'question';
         this.questionForm.reset()
@@ -68,7 +68,7 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
       this.barchobaService.setGameID(resp.id);
       console.log(resp.id);
       this.answer = '';
-      this.messages = [];
+      this.chat = [];
       this.status = 'question';
       this.questionForm.reset();
       this.guessForm.reset();
@@ -85,8 +85,7 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
       const question = this.questionForm.value.questionInput;
       this.barchobaService.sendQuestion(question).subscribe( (resp) => {
         const response = resp.content;
-        this.messages.push({role: 'user', content: question});
-        this.messages.push({role: 'assistant', content: this.translate(response)});
+        this.chat.unshift({question: question, answer: response});
         console.log(response);
         this.answer = this.translate(response);
         this.status = "answered";
@@ -148,7 +147,7 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
 
   exitGame() {
     this.barchobaService.setGameID("");
-    this.messages = [];
+    this.chat = [];
     this.status = 'not started';
     this.guessForm.reset();
     this.questionForm.reset();

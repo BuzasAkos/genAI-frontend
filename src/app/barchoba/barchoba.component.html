@@ -68,21 +68,13 @@
 </div>
 
 <div class="chat-history" #chatHistory *ngIf="status !== 'not started' && status !== 'starting'">
-    <div class="msg-gallery" *ngFor="let msg of messages">
-        <div class="question" *ngIf="msg.role === 'user'">
-            <span class="question-label">
-                {{translate('Question')}}:  
-            </span>
+    <div class="msg-gallery" *ngFor="let msg of chat">
+        <div class="chat-round">
             <span class="question-content">
-                {{msg.content}}
-            </span>
-        </div>
-        <div class="answer" *ngIf="msg.role === 'assistant'">
-            <span class="answer-label">
-                {{translate('Answer')}}:  
+                {{translate('Question')}}: &nbsp; <strong>{{msg.question}}</strong>
             </span>
             <span class="answer-content">
-                {{msg.content}}
+                {{translate('Answer')}}: &nbsp; <strong>{{translate(msg.answer)}}</strong> &nbsp; 
             </span>
         </div>
     </div>
