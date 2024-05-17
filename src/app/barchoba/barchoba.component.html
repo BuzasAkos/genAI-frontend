@@ -1,7 +1,7 @@
 <div class="header">
     <span class="home-icon" (click)="homeButtonClicked()">{{translate('Home')}}</span>
     <span class="header-txt">{{translate('AI Barchoba Game')}}</span>
-    <select class="lang-select" (change)="setLanguage($event)">
+    <select class="lang-select" tabindex="-1" (change)="setLanguage($event)">
         <option value="en" [selected]="selectedLanguage === 'en'">en</option>
         <option value="hu" [selected]="selectedLanguage === 'hu'">hu</option>
     </select>
@@ -15,13 +15,14 @@
                 <label for="question" class="form-label">{{translate('Question')}}:</label>
                 <input #inputField type="text" id="question" class="form-input" formControlName="questionInput"
                         placeholder="{{translate('Enter your question (4-40 characters)')}}" value="">
-                <button type="submit" class="send-button" [disabled]="questionForm.invalid || status !== 'question'">{{translate('Send Question')}}</button>
+                <button type="submit" class="send-button" [disabled]="questionForm.invalid" *ngIf="status === 'question' || status === 'sent'">{{translate('Send')}} »</button>
+                <button class="send-button" (click)="resetForm()" *ngIf="status === 'answered'">{{translate('Next')}} »</button>
             </div>
         </form>
         <div class="form-group-row">
             <span class="form-label">{{translate('Answer')}}:</span>
-            <span class="form-answer">{{answer}}</span>
-            <button class="send-button" (click)="resetForm()" [disabled]="status !== 'answered'">{{translate('Next Question')}}</button>
+            <span class="form-answer">{{translate(answer)}}</span>
+            <span class="form-placeholder"></span>
         </div>
     </div>
 
@@ -31,7 +32,7 @@
             <label for="guess" class="form-label">{{translate('Guess')}}:</label>
             <input type="text" id="guess" class="form-input" formControlName="guessInput"
                     placeholder="Enter the name" value="">
-            <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">{{translate('Send Guess')}} »</button>
+            <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">{{translate('Send')}} »</button>
             </div>
         </form>
         <div class="form-group-row">
@@ -71,22 +72,27 @@
     <div class="msg-gallery" *ngFor="let msg of chat">
         <div class="chat-round">
             <span class="question-content">
-                {{translate('Question')}}: &nbsp; <strong>{{msg.question}}</strong>
+                <span class="chat-label">{{translate('Question')}}:</span> <strong>{{msg.question}}</strong>
             </span>
             <span class="answer-content">
-                {{translate('Answer')}}: &nbsp; <strong>{{translate(msg.answer)}}</strong> &nbsp; 
+                <span class="chat-label">{{translate('Answer')}}:</span> <strong>{{translate(msg.answer)}}</strong> &nbsp; 
             </span>
         </div>
     </div>
 </div>
 
-<app-spinner *ngIf="status === 'starting' || status === 'sent' || status === 'guessed'"></app-spinner>
+@if (status === 'starting' || status === 'sent' || status === 'guessed') {
+    <app-spinner></app-spinner>
+}
 
-<app-popup *ngIf="showPopup" 
-    [popupMessage]="popupMessage" 
-    [yesLabel]="translate('Yes')" 
-    [noLabel]="translate('No')" 
-    (response)="resolvePopup($event)">
-</app-popup>
+@if (showPopup) {
+    <app-popup 
+        [popupMessage]="popupMessage" 
+        [type]="'confirm'"
+        [yesLabel]="translate('Yes')" 
+        [noLabel]="translate('No')" 
+        (response)="resolvePopup($event)">
+    </app-popup>
+}
 
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
@@ -8,7 +8,7 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './barchoba.component.html',
   styleUrl: './barchoba.component.scss'
 })
-export class BarchobaComponent implements OnInit, AfterViewInit {
+export class BarchobaComponent implements OnInit {
 
   @ViewChild('chatHistory') chatHistory!: ElementRef;
   
@@ -29,10 +29,6 @@ export class BarchobaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initForms();
     this.loadCurrentGame();
-  }
-
-  ngAfterViewInit(): void {
-    // this.chatScrollDown();
   }
 
   initForms() {

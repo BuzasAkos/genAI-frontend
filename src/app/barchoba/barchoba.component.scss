@@ -33,7 +33,7 @@
     }
 
     .lang-select {
-        width: 60px;
+        width: 40px;
         margin-right: 20px;
         color: black;
         height: 25px;
@@ -94,18 +94,17 @@
 
 .chat-history {
     position: fixed;
-    top: 220px;
+    top: 210px;
     bottom: 10px;
     width: calc(100% - 20px);
     overflow-y: auto;
     border: none;
     border-radius: 8px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-left: 10px;
     margin-right: 10px;
 
     .msg-gallery {
-        margin-left: 10px;
         font-size: 16px;
     }
 
@@ -127,11 +126,17 @@
     .question-content {
         color: darkslateblue;
         width: 360px;
+        display: flex;
     }
 
     .answer-content {
         color: darkslategray;
-        width: fit-content
+        width: fit-content;
+        display: flex;
+    }
+
+    .chat-label {
+        min-width: 70px;
     }
 }
 

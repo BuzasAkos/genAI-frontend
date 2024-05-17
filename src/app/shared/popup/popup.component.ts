@@ -9,8 +9,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PopupComponent {
   @Input() popupMessage: string = '';
+  @Input() type: string = 'confirm';
   @Input() yesLabel: string = 'Yes';
   @Input() noLabel: string = 'No';
+  @Input() okLabel: string = 'OK';
   @Output() response = new EventEmitter<string>;
 
   yesClicked() {
@@ -19,5 +21,9 @@ export class PopupComponent {
 
   noClicked() {
     this.response.emit('no');
+  }
+
+  okClicked() {
+    this.response.emit('ok');
   }
 }
