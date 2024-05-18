@@ -7,9 +7,36 @@
     </select>
 </div>
 
+@if (status === 'not started') {
+    <div class="guide-text">
+      @if (selectedLanguage === 'en') {  
+        <span>
+            I think of a <strong>person</strong>. <br> 
+            Alive or dead, real or imaginary.
+            Ask <strong>yes/no questions</strong> to find out who he/she is. <br>
+            If you know the answer, click on <strong>Final Guess</strong> and send me your solution.    
+        </span>
+      } 
+      @if (selectedLanguage === 'hu') {  
+        <span>
+            Gondoltam egy <strong>személyre</strong>. <br> 
+            Élő vagy holt, valós vagy kitalált.
+            Tegyél fel <strong>igen/nem kérdéseket</strong>, hogy kitaláld, ki ő. <br>
+            Ha tudod a választ, kattints a <strong>Rákérdezek</strong> gombra és küldd el a megoldásodat.    
+        </span>
+      }
+
+    </div>
+
+    <div class="home-image-container">
+        <img src="../../assets/ovXAM3c.png" alt="" class="home-image">
+    </div>
+}
+
 <div class="form-containers">
 
-    <div class="question-form-container" *ngIf="status === 'question' || status === 'sent' || status === 'answered'">
+    @if (status === 'question' || status === 'sent' || status === 'answered') {
+      <div class="question-form-container">
         <form [formGroup]="questionForm" (ngSubmit)="submitForm()">
             <div class="form-group-row">
                 <label for="question" class="form-label">{{translate('Question')}}:</label>
@@ -24,9 +51,11 @@
             <span class="form-answer">{{translate(answer)}}</span>
             <span class="form-placeholder"></span>
         </div>
-    </div>
+      </div>
+    }
 
-    <div class="guess-form-container" *ngIf="status === 'guess' || status === 'guessed' || status === 'completed'">
+    @if (status === 'guess' || status === 'guessed' || status === 'completed') {
+      <div class="guess-form-container">
         <form [formGroup]="guessForm" (ngSubmit)="submitGuess()">
             <div class="form-group-row">
             <label for="guess" class="form-label">{{translate('Guess')}}:</label>
@@ -40,37 +69,44 @@
             <span class="form-answer">{{answer}}</span>
             <button class="cancel-button" (click)="resetForm()" [disabled]="status !== 'guess'">« {{translate('back to questions')}}</button>
         </div>
-    </div>
+      </div>
+    }
 
-    <div class="exit-container" *ngIf="status === 'exited'">
+    @if (status === 'exited') {
+      <div class="exit-container">
         <div class="form-group-row">
             <span class="exit-message">{{exitMsg}}</span>
         </div>
-    </div>
+      </div>
+    }
 
-    <div class="form-group-row" *ngIf="status === 'answered'">
+    @if (status === 'answered') {
+      <div class="form-group-row">
         <button class="guess-button" (click)="loadGuessForm()" [disabled]="status !== 'answered'">{{translate('Final Guess')}}</button>
         <span class="placeholder"></span>
-        <button class="exit-button" (click)="showPopupMsg()" [disabled]="status !== 'answered'">{{translate('I give up')}}</button>
-    </div>
+        <button class="exit-button" (click)="showPopupConfirm()" [disabled]="status !== 'answered'">{{translate('I give up')}}</button>
+      </div>
+    }
 
-    <div class="start-container" *ngIf="status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed'">
+    @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
+      <div class="start-container">
         <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
             <button class="send-button" (click)="startGame()">{{translate('Start a New Game')}}</button>
         </div>
         <div class="form-group-row" *ngIf="status === 'starting'">
             <h3>{{translate('Loading the Barchoba Game')}}  ...</h3>
         </div>
-    </div>    
+      </div>
+    }
+
 </div>
 
-<div class="home-image-container" *ngIf="status === 'not started'">
-    <img src="../../assets/ovXAM3c.png" alt="" class="home-image">
-</div>
 
-<div class="chat-history" #chatHistory *ngIf="status !== 'not started' && status !== 'starting'">
+@if (status !== 'not started' && status !== 'starting') {
+  <div class="chat-history" #chatHistory>
     <div class="msg-gallery" *ngFor="let msg of chat">
-        <div class="chat-round">
+        <div class="chat-round" 
+        [ngStyle]="{'background-color': msg.answer.includes('Yes') || msg.answer.includes('Igen') ? 'beige' : 'white'}">
             <span class="question-content">
                 <span class="chat-label">{{translate('Question')}}:</span> <strong>{{msg.question}}</strong>
             </span>
@@ -79,7 +115,8 @@
             </span>
         </div>
     </div>
-</div>
+  </div>
+}
 
 @if (status === 'starting' || status === 'sent' || status === 'guessed') {
     <app-spinner></app-spinner>
@@ -88,11 +125,12 @@
 @if (showPopup) {
     <app-popup 
         [popupMessage]="popupMessage" 
-        [type]="'confirm'"
+        [type]="popupType"
         [yesLabel]="translate('Yes')" 
         [noLabel]="translate('No')" 
         (response)="resolvePopup($event)">
     </app-popup>
 }
+
 
 

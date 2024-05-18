@@ -18,6 +18,7 @@ export class BarchobaComponent implements OnInit {
   answer: string = "";
   status: string = 'not started';
   popupMessage: string = '';
+  popupType: string = '';
   showPopup: boolean = false;
   exitMsg: string = '';
   selectedLanguage: string;
@@ -123,7 +124,7 @@ export class BarchobaComponent implements OnInit {
         } else {
           this.answer = `${this.translate('The solution was')} ${solution}.`
         }
-        this.barchobaService.setGameID("");
+        this.showPopupInform();
       })
     }
   }
@@ -135,9 +136,8 @@ export class BarchobaComponent implements OnInit {
     this.barchobaService.sendGuess('').subscribe( (resp) => {
       const {solution, successful, countQ} = resp;
       console.log(solution, successful, countQ);
-      this.exitMsg = `${this.translate('You have exited the game')}.\n
+      this.exitMsg = `${this.translate('You have exited the game')}. \n
       ${this.translate('The solution was')} ${solution}.`;
-      this.barchobaService.setGameID("");
     });
   }
 
@@ -153,12 +153,19 @@ export class BarchobaComponent implements OnInit {
     if (this.status === 'completed' || this.status === 'exited') {
       this.exitGame();
     } else if (this.status === 'answered' || this.status === 'question' || this.status === 'guess') {
-      this.showPopupMsg();
+      this.showPopupConfirm();
     }
   }
 
-  showPopupMsg() {
+  showPopupConfirm() {
     this.popupMessage = this.translate('Do you really want to exit from this game?')
+    this.popupType = 'confirm';
+    this.showPopup = true;
+  }
+
+  showPopupInform() {
+    this.popupMessage = this.answer;
+    this.popupType = 'inform';
     this.showPopup = true;
   }
 
