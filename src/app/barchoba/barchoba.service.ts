@@ -7,7 +7,7 @@ import { translatedTexts } from './models/translated.texts';
 })
 export class BarchobaService {
 
-  //baseUrl = "http://localhost:3000";
+  // baseUrl = "http://localhost:3000";
   baseUrl = "https://nestjs-akosbuzas-4c8e7884e659.herokuapp.com"
   messages: {role: string, content: string}[] = []; 
   private gameID: string = "";
