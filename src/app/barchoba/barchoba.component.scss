@@ -14,10 +14,9 @@
     padding: 0 8px;
 
     .home-icon {
-        width: 80px;
+        width: 25px;
         cursor: pointer;
         color: white;
-        font-size: 16px;
 
         &:hover {
             color: beige;
@@ -25,7 +24,7 @@
     }
 
     .header-txt {
-        margin-right: 20px;
+        margin-left: 15px;
         font-weight: 800;
         font-size: 20px;
         text-align: center;
@@ -90,8 +89,8 @@
     }
 
     .start-container {
-        height: 50px;
-        padding-top: 10px;
+        height: 45px;
+        padding-top: 5px;
         background-color: white;
         display: flex;
         align-items: center;
