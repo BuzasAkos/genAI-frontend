@@ -42,15 +42,16 @@
                 <label for="question" class="form-label">{{translate('Question')}}:</label>
                 <input #inputField type="text" id="question" class="form-input" formControlName="questionInput"
                         placeholder="{{translate('Enter your question (4-40 characters)')}}" value="">
+                
+            </div>
+            <div class="form-group-row">
+                <span class="form-label" *ngIf="status === 'answered'">{{translate('Answer')}}:</span>
+                <span class="form-answer" *ngIf="status === 'answered'">{{translate(answer)}}</span>
                 <button type="submit" class="send-button" [disabled]="questionForm.invalid" *ngIf="status === 'question' || status === 'sent'">{{translate('Send')}} »</button>
                 <button class="send-button" (click)="resetForm()" *ngIf="status === 'answered'">{{translate('Next')}} »</button>
             </div>
         </form>
-        <div class="form-group-row">
-            <span class="form-label">{{translate('Answer')}}:</span>
-            <span class="form-answer">{{translate(answer)}}</span>
-            <span class="form-placeholder"></span>
-        </div>
+        
       </div>
     }
 
@@ -58,17 +59,18 @@
       <div class="guess-form-container">
         <form [formGroup]="guessForm" (ngSubmit)="submitGuess()">
             <div class="form-group-row">
-            <label for="guess" class="form-label">{{translate('Guess')}}:</label>
-            <input type="text" id="guess" class="form-input" formControlName="guessInput"
-                    placeholder="Enter the name" value="">
-            <button type="submit" class="send-button" [disabled]="guessForm.invalid || status !== 'guess'">{{translate('Send')}} »</button>
+                <label for="guess" class="form-label">{{translate('Guess')}}:</label>
+                <input type="text" id="guess" class="form-input" formControlName="guessInput"
+                        placeholder="Enter the name" value="">
+                
+            </div>
+            <div class="form-group-row">
+                <span class="form-label" *ngIf="status === 'guessed' || status === 'completed'">{{translate('Answer')}}:</span>
+                <span class="form-answer" *ngIf="status === 'guessed' || status === 'completed'">{{answer}}</span>
+                <button type="submit" class="send-button" [disabled]="guessForm.invalid" *ngIf="status === 'guess'">{{translate('Send')}} »</button>
+                <button class="cancel-button" (click)="resetForm()"  *ngIf="status === 'guess'">« {{translate('back to questions')}}</button>
             </div>
         </form>
-        <div class="form-group-row">
-            <span class="form-label">{{translate('Answer')}}:</span>
-            <span class="form-answer">{{answer}}</span>
-            <button class="cancel-button" (click)="resetForm()" [disabled]="status !== 'guess'">« {{translate('back to questions')}}</button>
-        </div>
       </div>
     }
 
@@ -80,11 +82,11 @@
       </div>
     }
 
-    @if (status === 'answered') {
+    @if (status === 'answered' || status === 'question') {
       <div class="form-group-row">
-        <button class="guess-button" (click)="loadGuessForm()" [disabled]="status !== 'answered'">{{translate('Final Guess')}}</button>
+        <button class="guess-button" (click)="loadGuessForm()">{{translate('Final Guess')}}</button>
         <span class="placeholder"></span>
-        <button class="exit-button" (click)="showPopupConfirm()" [disabled]="status !== 'answered'">{{translate('I give up')}}</button>
+        <button class="exit-button" (click)="showPopupConfirm()">{{translate('I give up')}}</button>
       </div>
     }
 
