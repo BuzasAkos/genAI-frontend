@@ -93,7 +93,7 @@
     @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
       <div class="start-container">
         <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-            <button class="send-button" (click)="startGame()">{{translate('Start a New Game')}}</button>
+            <button class="send-button" [disabled]="showPopup" (click)="startGame()">{{translate('Start a New Game')}}</button>
         </div>
         <div class="form-group-row" *ngIf="status === 'starting'">
             <h3>{{translate('Loading the Barchoba Game')}}  ...</h3>
