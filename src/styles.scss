@@ -50,6 +50,12 @@ body {
         background-color: cyan;
     }
 
+    #guess-answer {
+        max-width: 550px;
+        min-width: 140px;
+        flex: 1;
+    }
+
     .form-placeholder {
         width: 160px;
         min-width: 100px;

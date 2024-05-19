@@ -101,6 +101,12 @@ export class BarchobaComponent implements OnInit {
     this.questionForm.enable();
   }
 
+  inputClicked() {
+    if (this.status === 'answered') {
+      this.resetForm();
+    }
+  }
+
   loadGuessForm() {
     this.guessForm.reset();
     this.guessForm.enable();
