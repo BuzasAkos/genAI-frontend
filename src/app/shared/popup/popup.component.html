@@ -6,14 +6,14 @@
 
         @if (type === 'confirm') {
             <div class="form-group-row">
-                <button class="send-button" (click)="yesClicked()">{{yesLabel}}</button>
-                <button class="cancel-button" (click)="noClicked()">{{noLabel}}</button>
+                <button class="btn primary-button" (click)="yesClicked()">{{yesLabel}}</button>
+                <button class="btn cancel-button" (click)="noClicked()">{{noLabel}}</button>
             </div>
         }
         
         @if (type === 'inform') {
             <div class="form-group-row">
-                <button class="send-button" (click)="okClicked()">{{okLabel}}</button>
+                <button class="btn primary-button" (click)="okClicked()">{{okLabel}}</button>
             </div>
         }
     </div>
