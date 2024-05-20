@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { translatedTexts } from './models/translated.texts';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BarchobaService {
 
-  // baseUrl = "http://localhost:3000";
-  baseUrl = "https://nestjs-akosbuzas-4c8e7884e659.herokuapp.com"
+  baseUrl = environment.backend_url;
   messages: {role: string, content: string}[] = []; 
   private gameID: string = "";
   private language: string = "hu";
