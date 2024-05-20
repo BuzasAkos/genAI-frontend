@@ -13,6 +13,7 @@ export const translatedTexts = [
     {en: 'Loading the Barchoba Game', hu: 'Barkóba játék betöltése'},
     {en: 'Enter your question (4-40 characters)', hu: 'Írd be a kérdésed (4-40 karakter)'},
     {en: 'back to questions', hu: 'kérdezek még'},
+    {en: 'Enter the name', hu: 'Írd be a nevet'},
     {en: 'Congrats, you solved it from', hu: 'Gratulálok, kitaláltad'},
     {en: 'questions', hu: 'kérdésből'},
     {en: 'The solution was', hu: 'A megoldás'},

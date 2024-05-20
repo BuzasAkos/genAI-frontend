@@ -1,3 +1,5 @@
+$header-color: #256189;
+
 .header {
     position: fixed;
     top: 0;
@@ -8,7 +10,7 @@
     align-items: center;
     justify-content: center;
     
-    background-color: darkcyan;
+    background-color: $header-color;
     color: white;
     margin: 0;
     padding: 0 8px;
@@ -138,6 +140,7 @@
 .guess-answer {
     max-width: 550px;
     min-width: 140px;
+    background-color: transparent;
     flex: 1;
 }
 
