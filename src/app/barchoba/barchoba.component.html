@@ -46,7 +46,7 @@
             <div class="form-group-row">
                 <span class="form-label" *ngIf="status === 'answered'">{{translate('Answer')}}:</span>
                 <span class="form-answer" *ngIf="status === 'answered'">{{translate(answer)}}</span>
-                <button type="submit" class="btn primary-button" [disabled]="questionForm.invalid" *ngIf="status === 'question' || status === 'sent'">{{translate('Send')}} »</button>
+                <button type="submit" class="btn primary-button" [disabled]="questionForm.invalid" *ngIf="status === 'question'">{{translate('Send')}} »</button>
                 <button class="btn primary-button" (click)="resetForm()" *ngIf="status === 'answered'">{{translate('Next')}} »</button>
             </div>
         </form>

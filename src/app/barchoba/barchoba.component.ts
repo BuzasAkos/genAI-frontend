@@ -79,7 +79,10 @@ export class BarchobaComponent implements OnInit {
       this.questionForm.disable();
       this.answer = "";
       this.status = "sent";
-      const question = this.questionForm.value.questionInput;
+      let question: string = this.questionForm.value.questionInput;
+      if (!question.includes('?', question.length - 3)) {
+        question = question + '?';
+      }
       this.barchobaService.sendQuestion(question).subscribe( (resp) => {
         const response = resp.content;
         this.chat.unshift({question: question, answer: response});

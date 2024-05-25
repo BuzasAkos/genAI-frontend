@@ -17,6 +17,7 @@ export const translatedTexts = [
     {en: 'Congrats, you solved it from', hu: 'Gratulálok, kitaláltad'},
     {en: 'questions', hu: 'kérdésből'},
     {en: 'The solution was', hu: 'A megoldás'},
+    {en: 'I cannot answer.', hu: 'Nem válaszolhatok.'},
     {en: 'You have exited the game', hu: 'Kiléptél a játékból'},
     {en: 'Do you really want to exit from this game?', hu: 'Valóban ki szeretnél lépni a játékból?'},
     {en: 'Yes', hu: 'Igen'},
