@@ -1,6 +1,6 @@
 export const translatedTexts = [
     {en: 'Home', hu: 'Főoldal'},
-    {en: 'AI Barchoba Game', hu: 'AI Barkóba Játék'},
+    {en: 'AI Barkochba Game', hu: 'AI Barkochba Játék'},
     {en: 'Question', hu: 'Kérdés'},
     {en: 'Answer', hu: 'Válasz'},
     {en: 'Guess', hu: 'Tipp'},
@@ -10,7 +10,7 @@ export const translatedTexts = [
     {en: 'I give up', hu: 'Szabad a gazda'},
     {en: 'Final Guess', hu: 'Rákérdezek'},
     {en: 'Start a New Game', hu: 'Új Játék Indítása'},
-    {en: 'Loading the Barchoba Game', hu: 'Barkóba játék betöltése'},
+    {en: 'Loading the Barkochba Game', hu: 'Barkochba játék betöltése'},
     {en: 'Enter your question (4-40 characters)', hu: 'Írd be a kérdésed (4-40 karakter)'},
     {en: 'back to questions', hu: 'kérdezek még'},
     {en: 'Enter the name', hu: 'Írd be a nevet'},
