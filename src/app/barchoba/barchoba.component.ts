@@ -34,7 +34,7 @@ export class BarchobaComponent implements OnInit {
 
   initForms() {
     this.questionForm = this.formBuilder.group({
-      questionInput: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]]
+      questionInput: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]]
     });
     this.guessForm = this.formBuilder.group({
       guessInput: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]]
@@ -89,6 +89,7 @@ export class BarchobaComponent implements OnInit {
         console.log(response);
         this.answer = this.translate(response);
         this.status = "answered";
+        this.questionForm.enable();
       })
     }
   }

@@ -11,7 +11,7 @@ export const translatedTexts = [
     {en: 'Final Guess', hu: 'Rákérdezek'},
     {en: 'Start a New Game', hu: 'Új Játék Indítása'},
     {en: 'Loading the Barkochba Game', hu: 'Barkochba játék betöltése'},
-    {en: 'Enter your question (4-40 characters)', hu: 'Írd be a kérdésed (4-40 karakter)'},
+    {en: 'Enter your question (3-40 characters)', hu: 'Írd be a kérdésed (3-40 karakter)'},
     {en: 'back to questions', hu: 'kérdezek még'},
     {en: 'Enter the name', hu: 'Írd be a nevet'},
     {en: 'Congrats, you solved it from', hu: 'Gratulálok, kitaláltad'},
