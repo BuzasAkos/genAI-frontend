@@ -80,7 +80,7 @@
       </div>
     }
 
-    @if (status === 'answered' && chat.length > 2) {
+    @if ((status === 'answered' || status === 'question') && chat.length > 2) {
       <div class="form-group-row">
         <button class="btn guess-button" (click)="loadGuessForm()">{{translate('Final Guess')}}</button>
         <span class="placeholder"></span>
