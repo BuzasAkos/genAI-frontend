@@ -45,6 +45,7 @@ export class BarchobaComponent implements OnInit {
     if (this.barchobaService.checkCurrentGame()) {
       this.status = 'starting';
       this.barchobaService.getChatHistory().subscribe( (resp) => {
+        // console.log(resp);
         if (!resp) {
           this.status = 'not started';
           this.barchobaService.setGameID('');

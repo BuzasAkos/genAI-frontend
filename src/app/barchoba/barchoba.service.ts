@@ -47,7 +47,7 @@ export class BarchobaService {
     const id = localStorage.getItem('barchobaGameID');
     if (id) {
       this.gameID = id;
-      console.log(id);
+      console.log('loading game:', id);
       return true;
     }
     return false;
