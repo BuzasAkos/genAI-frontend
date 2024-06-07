@@ -76,7 +76,6 @@ export class BarchobaComponent implements OnInit {
 
   submitForm() {
     if (this.questionForm.valid) {
-      console.log('Form submitted!');
       this.questionForm.disable();
       this.answer = "";
       this.status = "sent";
@@ -84,14 +83,19 @@ export class BarchobaComponent implements OnInit {
       if (!question.includes('?', question.length - 3)) {
         question = question + '?';
       }
-      this.barchobaService.sendQuestion(question).subscribe( (resp) => {
+      console.log('Question submitted:', question);
+      this.barchobaService.sendQuestion(question).subscribe({next: (resp) => {
         const response = resp.content;
         this.chat.unshift({question: question, answer: response});
         console.log(response);
         this.answer = this.translate(response);
         this.status = "answered";
         this.questionForm.enable();
-      })
+      }, error: (err) => {
+        console.log(err);
+        alert(this.translate("The model is not responding. Proceed with another question."));
+        this.resetForm();
+      }})
     }
   }
 

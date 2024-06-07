@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { translatedTexts } from './models/translated.texts';
 import { environment } from '../../environments/environment';
+import { timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -84,7 +85,7 @@ export class BarchobaService {
     return this.http.post<any>(url, {
       "gameID": this.gameID,
       "question": question
-    });
+    }).pipe(timeout(20000));
   }
 
   sendGuess(guess: string) {
@@ -92,7 +93,7 @@ export class BarchobaService {
     return this.http.post<any>(url, {
       "gameID": this.gameID,
       "question": guess
-    });
+    }).pipe(timeout(20000));
   }
 
   translator(txt: string) {
