@@ -77,7 +77,7 @@ export class BarchobaService {
 
   newGame() {
     const url = `${this.baseUrl}/barchoba/new`;
-    return this.http.post<any>(url,{});
+    return this.http.post<any>(url,{}).pipe(timeout(30000));
   }
 
   sendQuestion(question: string) {

@@ -44,11 +44,9 @@ export class BarchobaComponent implements OnInit {
   loadCurrentGame() {
     if (this.barchobaService.checkCurrentGame()) {
       this.status = 'starting';
-      this.barchobaService.getChatHistory().subscribe( (resp) => {
-        // console.log(resp);
+      this.barchobaService.getChatHistory().subscribe({next: (resp) => {
         if (!resp) {
-          this.status = 'not started';
-          this.barchobaService.setGameID('');
+          this.exitGame();
           return;
         }
         this.chat = this.barchobaService.buildChat(resp);
@@ -56,13 +54,16 @@ export class BarchobaComponent implements OnInit {
         this.status = 'question';
         this.questionForm.reset()
         this.questionForm.enable();
-      });
+      }, error: (err) => {
+        console.log(err);
+        this.exitGame();
+      }});
     }
   }
 
   startGame() {
     this.status = 'starting';
-    this.barchobaService.newGame().subscribe( (resp) => {
+    this.barchobaService.newGame().subscribe({next: (resp) => {
       this.barchobaService.setGameID(resp.id);
       console.log(resp.id);
       this.answer = '';
@@ -71,7 +72,10 @@ export class BarchobaComponent implements OnInit {
       this.questionForm.reset();
       this.guessForm.reset();
       this.questionForm.enable();
-    });
+    }, error: (err) => {
+      console.log(err);
+      this.status = 'not started';
+    }});
   }
 
   submitForm() {
@@ -85,6 +89,13 @@ export class BarchobaComponent implements OnInit {
       }
       console.log('Question submitted:', question);
       this.barchobaService.sendQuestion(question).subscribe({next: (resp) => {
+        if (!resp.content && (resp.status === 406 || resp.status === 404)) {
+          console.log(resp.message);
+          alert(resp.message);
+          this.resetForm();
+          return;
+        }
+        
         const response = resp.content;
         this.chat.unshift({question: question, answer: response});
         console.log(response);
@@ -130,17 +141,29 @@ export class BarchobaComponent implements OnInit {
       this.answer = "";
       this.status = "guessed";
       const guess = this.guessForm.value.guessInput;
-      this.barchobaService.sendGuess(guess).subscribe( (resp) => {
+      this.barchobaService.sendGuess(guess).subscribe({next: (resp) => {
+        if (!resp.solution && (resp.status === 406 || resp.status === 404)) {
+          console.log(resp.message);
+          alert(resp.message);
+          this.resetForm();
+          return;
+        }
+        
         const {solution, successful, countQ} = resp;
         console.log(solution, successful, countQ);
         this.status = "completed";
+
         if (successful) {
           this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!` 
         } else {
           this.answer = `${this.translate('The solution was')} ${solution}.`
         }
         this.showPopupInform();
-      })
+      }, error: (err) => {
+        console.log(err);
+        alert(this.translate("The model is not responding. Please, try again."));
+        this.loadGuessForm();
+      }})
     }
   }
 
@@ -148,12 +171,16 @@ export class BarchobaComponent implements OnInit {
     this.hidePopUpMsg();
     this.answer = "";
     this.status = 'exited';
-    this.barchobaService.sendGuess('').subscribe( (resp) => {
+    this.barchobaService.sendGuess('').subscribe({next: (resp) => {
       const {solution, successful, countQ} = resp;
       console.log(solution, successful, countQ);
       this.exitMsg = `${this.translate('You have exited the game')}. \n
       ${this.translate('The solution was')} ${solution}.`;
-    });
+    }, error: (err) => {
+      console.log(err);
+      alert(this.translate("The model is not responding. Please, try again."));
+      this.resetForm();
+    }});
   }
 
   exitGame() {
