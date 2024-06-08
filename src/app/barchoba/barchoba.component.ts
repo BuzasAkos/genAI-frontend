@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
+import { TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-barchoba',
@@ -89,13 +90,6 @@ export class BarchobaComponent implements OnInit {
       }
       console.log('Question submitted:', question);
       this.barchobaService.sendQuestion(question).subscribe({next: (resp) => {
-        if (!resp.content && (resp.status === 406 || resp.status === 404)) {
-          console.log(resp.message);
-          alert(resp.message);
-          this.resetForm();
-          return;
-        }
-        
         const response = resp.content;
         this.chat.unshift({question: question, answer: response});
         console.log(response);
@@ -104,8 +98,13 @@ export class BarchobaComponent implements OnInit {
         this.questionForm.enable();
       }, error: (err) => {
         console.log(err);
-        alert(this.translate("The model is not responding. Proceed with another question."));
         this.resetForm();
+        if (err.name && err.name === 'TimeoutError') {
+          alert(this.translate("The model is not responding. Proceed with another question."));
+        }
+        if (err.error && err.error.message) {
+          alert(this.translate(err.error.message));
+        }
       }})
     }
   }
@@ -142,13 +141,6 @@ export class BarchobaComponent implements OnInit {
       this.status = "guessed";
       const guess = this.guessForm.value.guessInput;
       this.barchobaService.sendGuess(guess).subscribe({next: (resp) => {
-        if (!resp.solution && (resp.status === 406 || resp.status === 404)) {
-          console.log(resp.message);
-          alert(resp.message);
-          this.resetForm();
-          return;
-        }
-        
         const {solution, successful, countQ} = resp;
         console.log(solution, successful, countQ);
         this.status = "completed";
@@ -161,7 +153,14 @@ export class BarchobaComponent implements OnInit {
         this.showPopupInform();
       }, error: (err) => {
         console.log(err);
-        alert(this.translate("The model is not responding. Please, try again."));
+        if (err.name && err.name === 'TimeoutError') {
+          console.log(err.name);
+          alert(this.translate("The model is not responding. Please, try again."));
+        }
+        if (err.error && err.error.message) {
+          console.log(err.error.message);
+          alert(this.translate(err.error.message));
+        }
         this.loadGuessForm();
       }})
     }

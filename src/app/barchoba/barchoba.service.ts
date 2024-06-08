@@ -77,7 +77,7 @@ export class BarchobaService {
 
   newGame() {
     const url = `${this.baseUrl}/barchoba/new`;
-    return this.http.post<any>(url,{}).pipe(timeout(30000));
+    return this.http.post<any>(url,{}).pipe(timeout(40000));
   }
 
   sendQuestion(question: string) {
@@ -85,7 +85,7 @@ export class BarchobaService {
     return this.http.post<any>(url, {
       "gameID": this.gameID,
       "question": question
-    }).pipe(timeout(20000));
+    }).pipe(timeout(25000));
   }
 
   sendGuess(guess: string) {
@@ -93,7 +93,7 @@ export class BarchobaService {
     return this.http.post<any>(url, {
       "gameID": this.gameID,
       "question": guess
-    }).pipe(timeout(20000));
+    }).pipe(timeout(25000));
   }
 
   translator(txt: string) {
