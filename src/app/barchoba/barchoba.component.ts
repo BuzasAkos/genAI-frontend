@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
-import { TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-barchoba',
