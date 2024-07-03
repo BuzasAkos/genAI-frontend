@@ -36,6 +36,8 @@ export class BarchobaService {
     const lang = localStorage.getItem('barchobaLanguage');
     if (lang) {
       ['en', 'hu'].includes(lang) ? this.language = lang : this.language = 'en';
+    } else {
+      this.language = 'en';
     }
     return this.language;
   }

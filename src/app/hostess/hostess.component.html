@@ -10,56 +10,56 @@
 <div class="main-container">
 
   <div class="form-group-row">
-    <span class="event-title">Hosted event: {{hostedEvent}}</span>
+    <span class="event-title">{{translate('Hosted event')}}: {{hostedEvent}}</span>
   </div>
     
   <div class="hostess-container" *ngIf="['ask', 'sent', 'answered'].includes(status)">
     <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
       <div class="form-group-row">
-        <label for="question" class="form-label">Ask a question from the Hostess:</label>
+        <label for="question" class="form-label">{{translate('Ask a question from the Hostess')}}:</label>
       </div>
       <div class="form-group-row">
         <input type="text" 
             id="question" 
             formControlName="question" 
             class="form-input" 
-            placeholder="Enter your question (8 - 80 characters)"
+            placeholder="{{translate('Enter your question (8 - 80 characters)')}}"
             (click)="onInputBoxClicked()">
       </div>
       <div class="placeholder"></div>
       <div class="form-group-row" *ngIf="status === 'ask' || status === 'sent'">
-        <button type="submit" class="btn primary-button" [disabled]="!questionForm.valid">Submit</button>
+        <button type="submit" class="btn primary-button" [disabled]="!questionForm.valid">{{translate('Submit')}}</button>
       </div>
     </form>
     <div class="form-group-row" *ngIf="status === 'answered'">
-        <span class="form-label">Answer by the Hostess:</span>
+        <span class="form-label">{{translate('Answer by the Hostess')}}:</span>
     </div>
     <div class="answer-container" *ngIf="status === 'answered'">
         <span class="answer-box">{{answer}}</span> 
     </div>
     <div class="placeholder"></div>
     <div class="form-group-row" *ngIf="status === 'answered'">
-        <button class="btn primary-button" (click)="onNewButtonClicked()">New Question</button>
+        <button class="btn primary-button" (click)="onNewButtonClicked()">{{translate('New Question')}}</button>
     </div>
   </div>
 
   <div class="hostess-container add-instruction" *ngIf="status === 'add'">
     <form [formGroup]="addForm" (ngSubmit)="onInstructionSubmit()">
         <div class="form-group-row">
-          <label for="instruction" class="form-label">Provide additional info for the Hostess:</label>
+          <label for="instruction" class="form-label">{{translate('Provide additional info for the Hostess')}}:</label>
         </div>
         <div class="form-group-row flex-height">
           <textarea class="instruction-input"
               id="instruction" 
               formControlName="instruction" 
               class="instruction-input" 
-              placeholder="Enter the info (30 - 300 characters)">
+              placeholder="{{translate('Enter the info (30 - 300 characters)')}}">
           </textarea>
         </div>
         <div class="placeholder"></div>
         <div class="form-group-row" *ngIf="status === 'add'">
-          <button type="submit" class="btn primary-button" [disabled]="!addForm.valid">Submit Info</button>
-          <button type="button" class="btn cancel-button" (click)="onCancelClicked()">Cancel</button>
+          <button type="submit" class="btn primary-button" [disabled]="!addForm.valid">{{translate('Submit Info')}}</button>
+          <button type="button" class="btn cancel-button" (click)="onCancelClicked()">{{translate('Cancel')}}</button>
         </div>
     </form>
   </div>
@@ -72,14 +72,14 @@
         </div>
     </div>
     <div class="form-group-row">
-        <button class="btn edit-button" (click)="onBackButtonClicked()">« Back</button> 
+        <button class="btn edit-button" (click)="onBackButtonClicked()">« {{translate('Back')}}</button> 
     </div>
   </div>
 
   <div class="placeholder"></div>
   <div class="form-group-row" *ngIf="['ask', 'answered'].includes(status)">
-    <button class="btn edit-button" (click)="onAddButtonClicked()">Add Instruction</button>
-    <button class="btn edit-button" (click)="onViewButtonClicked()">View Instructions</button>
+    <button class="btn edit-button" (click)="onAddButtonClicked()">{{translate('Add Instruction')}}</button>
+    <button class="btn edit-button" (click)="onViewButtonClicked()">{{translate('View Instructions')}}</button>
   </div>
 
 </div>
@@ -88,8 +88,8 @@
     <app-popup 
         [popupMessage]="popupMessage" 
         [type]="popupType"
-        [yesLabel]="'Yes'" 
-        [noLabel]="'No'" 
+        [yesLabel]="translate('Yes')" 
+        [noLabel]="translate('No')" 
         (response)="resolvePopup($event)">
     </app-popup>
 }

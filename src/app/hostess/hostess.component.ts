@@ -4,6 +4,7 @@ import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } 
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { PopupComponent } from '../shared/popup/popup.component';
 import { HostessService } from './hostess.service';
+import { hostessTexts } from './hostess.translator';
 
 @Component({
   selector: 'app-hostess',
@@ -131,12 +132,13 @@ export class HostessComponent {
 
   hidePopUpMsg() {
     this.showPopup = false;
+    this.popupMessage = '';
   }
 
   onDelIconClicked(item: {id: string, text: string}) {
     this.selInstruction = item.id;
     console.log('delete clicked on', this.selInstruction);
-    this.popupMessage = 'Do you want to delete this instruction?' + '\n\n' + item.text;
+    this.popupMessage = this.translate('Do you want to delete this instruction') + '?\n\n' + item.text;
     this.popupType = 'confirm';
     this.showPopup = true;
   }
@@ -150,6 +152,13 @@ export class HostessComponent {
     }, error: err => {
       console.log(err);
     }})
+  }
+
+  translate(txt: string): string {
+    if (this.selectedLanguage === 'hu') {
+       return hostessTexts.find(item => item.en === txt)?.hu || txt;
+    }
+    return txt;
   }
 
 }
