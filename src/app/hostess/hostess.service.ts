@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -32,6 +32,20 @@ export class HostessService {
     }
     return this.httpClient.post(url, payload);
   }
+
+  loadInfoList() {
+    const url = `${this.baseUrl}/hostess/${this.topic}`;
+    return this.httpClient.get<{id: string, text: string, embedding: number[]}[]>(url).pipe(
+      map(data => data.map(item => ({ id: item.id, text: item.text })))
+    );
+  }
+
+  deleteInfo(id: string) {
+    const url = `${this.baseUrl}/hostess/${id}`;
+    return this.httpClient.delete(url);
+  }
+
+
 
 
 }

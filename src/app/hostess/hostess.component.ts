@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { PopupComponent } from '../shared/popup/popup.component';
 import { HostessService } from './hostess.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { HostessService } from './hostess.service';
     FormsModule,
     ReactiveFormsModule,
     SpinnerComponent,
+    PopupComponent,
   ],
   templateUrl: './hostess.component.html',
   styleUrl: './hostess.component.scss'
@@ -23,6 +25,11 @@ export class HostessComponent {
   question: string = '';
   answer: string = '';
   status: string = 'ask';
+  showPopup: boolean = false;
+  popupMessage: string = '';
+  popupType: string = '';
+  selInstruction: string = '';
+  infoList: {id: string, text: string}[] = [];
   questionForm!: FormGroup;
   addForm!: FormGroup;
 
@@ -100,13 +107,49 @@ export class HostessComponent {
   }
 
   onViewButtonClicked() {
-    // this.status = 'view';
+    this.status = 'view';
+    this.hostessService.loadInfoList().subscribe({next: resp => {
+      this.infoList = resp;
+    }, error: err => {
+      console.log(err);
+    }})
+  }
+
+  onBackButtonClicked() {
+    this.resetQuestionForm();
   }
 
   resetQuestionForm() {
     this.questionForm.reset();
     this.questionForm.enable();
     this.status = 'ask';
+  }
+
+  resolvePopup(resp: string) {
+    resp === 'yes' ? this.deleteInstruction() : this.hidePopUpMsg();
+  }
+
+  hidePopUpMsg() {
+    this.showPopup = false;
+  }
+
+  onDelIconClicked(item: {id: string, text: string}) {
+    this.selInstruction = item.id;
+    console.log('delete clicked on', this.selInstruction);
+    this.popupMessage = 'Do you want to delete this instruction?' + '\n\n' + item.text;
+    this.popupType = 'confirm';
+    this.showPopup = true;
+  }
+
+  deleteInstruction() {
+    this.hidePopUpMsg();
+    this.hostessService.deleteInfo(this.selInstruction).subscribe({next: resp => {
+      console.log('Item deleted:', this.selInstruction);
+      this.selInstruction = '';
+      this.onViewButtonClicked();
+    }, error: err => {
+      console.log(err);
+    }})
   }
 
 }

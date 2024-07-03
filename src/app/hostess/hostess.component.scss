@@ -159,4 +159,57 @@ $header-color: #ba5b8e;
 .flex-height {
     height: fit-content;
 }
+
+.list-container {
+    width: 90%;
+    min-width: 320px;
+    max-width: 900px;
+    height: fit-content;
+    margin: 8px 8px;
+    padding: 20px 10px;
+    // background-color: whitesmoke;
+    // border: 1px solid #ccc;
+    // border-radius: 5px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-text {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: lightcyan;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.del-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    text-align: center;
+    justify-items: center;
+    border-radius: 10px;
+    border: solid;
+    color: red;
+    border-color: red;
+
+    &:hover {
+        background-color: red;
+        color: white;
+        cursor: pointer;
+    }
+}
   
