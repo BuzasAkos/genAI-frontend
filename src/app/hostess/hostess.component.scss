@@ -191,25 +191,19 @@ $header-color: #ba5b8e;
 }
 
 .del-icon {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
     margin-left: 10px;
-    width: 20px;
-    height: 20px;
-    font-size: 14px;
-    text-align: center;
-    justify-items: center;
-    border-radius: 10px;
-    border: solid;
-    color: red;
-    border-color: red;
-
+    
     &:hover {
-        background-color: red;
-        color: white;
-        cursor: pointer;
+        background-color: whitesmoke;
+    }
+}
+
+.erase-icon {
+    cursor: pointer;
+    
+    &:hover {
+        background-color: whitesmoke;
     }
 }
   

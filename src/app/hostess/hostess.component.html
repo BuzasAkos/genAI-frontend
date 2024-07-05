@@ -65,10 +65,26 @@
   </div>
 
   <div class="list-container" *ngIf="status === 'view'">
-    <div class="list-row" *ngFor="let item of infoList">
+    <div class="form-group-row">
+        <input type="text" 
+            class="form-input"
+            placeholder="{{translate('filter text')}}" 
+            [(ngModel)]="filterInput" 
+            (input)="filterList()">
+        <span>
+            <img src="../../assets/icons8-erase-50.png" alt="clear filter" 
+                width="35px" height="35px" 
+                class="erase-icon"
+                (click)="onEraseIconClicked()">
+        </span>
+    </div>
+    <div class="list-row" *ngFor="let item of filteredInfoList">
         <div class="list-text">{{item.text}}</div>
         <div class="del-icon" (click)="onDelIconClicked(item)">
-           <span>X</span>
+           <span>
+            <img src="../../assets/icons8-delete-80.png" alt="delete item"
+                width="25px" height="25px">
+           </span>
         </div>
     </div>
     <div class="form-group-row">

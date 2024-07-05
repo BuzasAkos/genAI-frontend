@@ -22,7 +22,7 @@ import { hostessTexts } from './hostess.translator';
 export class HostessComponent {
 
   selectedLanguage: string = 'en';
-  hostedEvent: string = 'Coldplay concert';
+  hostedEvent: string = 'Coldplay';
   question: string = '';
   answer: string = '';
   status: string = 'ask';
@@ -31,6 +31,8 @@ export class HostessComponent {
   popupType: string = '';
   selInstruction: string = '';
   infoList: {id: string, text: string}[] = [];
+  filterInput: string = '';
+  filteredInfoList: {id: string, text: string}[] = [];
   questionForm!: FormGroup;
   addForm!: FormGroup;
 
@@ -111,6 +113,8 @@ export class HostessComponent {
     this.status = 'view';
     this.hostessService.loadInfoList().subscribe({next: resp => {
       this.infoList = resp;
+      this.filterInput = '';
+      this.filteredInfoList = resp;
     }, error: err => {
       console.log(err);
     }})
@@ -138,7 +142,7 @@ export class HostessComponent {
   onDelIconClicked(item: {id: string, text: string}) {
     this.selInstruction = item.id;
     console.log('delete clicked on', this.selInstruction);
-    this.popupMessage = this.translate('Do you want to delete this instruction') + '?\n\n' + item.text;
+    this.popupMessage = '<strong>' + this.translate('Do you want to delete this instruction') + '?</strong><br><br>' + item.text;
     this.popupType = 'confirm';
     this.showPopup = true;
   }
@@ -159,6 +163,21 @@ export class HostessComponent {
        return hostessTexts.find(item => item.en === txt)?.hu || txt;
     }
     return txt;
+  }
+
+  filterList() {
+    if (this.filterInput) {
+      this.filteredInfoList = this.infoList.filter(item => { 
+        return item.text.toLowerCase().indexOf(this.filterInput.toLowerCase()) !== -1 
+      });
+    } else {
+      this.filteredInfoList = this.infoList.filter(item => true);
+    }
+  }
+
+  onEraseIconClicked() {
+    this.filterInput = '';
+    this.filterList();
   }
 
 }

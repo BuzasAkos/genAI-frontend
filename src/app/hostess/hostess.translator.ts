@@ -15,5 +15,6 @@ export const hostessTexts = [
     {en: 'Do you want to delete this instruction', hu: 'Törölni akarod ezt az utasítást'},
     {en: 'Yes', hu: 'Igen'},
     {en: 'No', hu: 'Nem'},
+    {en: 'filter text', hu: 'szöveg szűrése'},
     {en: '', hu: ''},
 ]

@@ -1,7 +1,7 @@
 <div class="modal-container">
     <div class="popup-window">
         <div class="popup-text">
-            <span>{{popupMessage}}</span>
+            <span [innerHTML]="popupMessage"></span>
         </div>
 
         @if (type === 'confirm') {
