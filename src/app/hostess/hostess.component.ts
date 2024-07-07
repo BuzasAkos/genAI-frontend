@@ -5,6 +5,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { PopupComponent } from '../shared/popup/popup.component';
 import { HostessService } from './hostess.service';
 import { hostessTexts } from './hostess.translator';
+import { TooltipDirective } from '../shared/tooltip/tooltip.directive';
 
 @Component({
   selector: 'app-hostess',
@@ -15,6 +16,7 @@ import { hostessTexts } from './hostess.translator';
     ReactiveFormsModule,
     SpinnerComponent,
     PopupComponent,
+    TooltipDirective,
   ],
   templateUrl: './hostess.component.html',
   styleUrl: './hostess.component.scss'

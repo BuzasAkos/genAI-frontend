@@ -75,6 +75,7 @@
             <img src="../../assets/icons8-erase-50.png" alt="clear filter" 
                 width="35px" height="35px" 
                 class="erase-icon"
+                appTooltip="{{translate('Clear filter')}}"
                 (click)="onEraseIconClicked()">
         </span>
     </div>
@@ -83,7 +84,8 @@
         <div class="del-icon" (click)="onDelIconClicked(item)">
            <span>
             <img src="../../assets/icons8-delete-80.png" alt="delete item"
-                width="25px" height="25px">
+                width="25px" height="25px"
+                appTooltip="{{translate('Delete this information')}}">
            </span>
         </div>
     </div>

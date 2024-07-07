@@ -122,5 +122,17 @@ body {
     }
 }
 
+.tooltip-container {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    z-index: 1000;
+    white-space: nowrap;
+    transition: opacity 0.2s ease-in-out;
+  }
+
 
 
