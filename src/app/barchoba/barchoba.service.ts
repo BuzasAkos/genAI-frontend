@@ -109,4 +109,9 @@ export class BarchobaService {
     return txt;
   }
 
+  getResults(competition: string) {
+    const url = `${this.baseUrl}/barchoba/results/${competition}`;
+    return this.http.get<any>(url);
+  }
+
 }

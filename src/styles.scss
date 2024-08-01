@@ -122,6 +122,26 @@ body {
     }
 }
 
+.leaderboard-button {
+    border-color: gray;
+    background-color: white;
+    color: darkslategray;
+
+    &:disabled {
+        background-color: #c3c3c3;
+
+        &:hover {
+            background-color: #c3c3c3;
+        }
+    }
+
+    &:hover {
+        background-color: gray;
+        border-color: gray;
+        color: white
+    }
+}
+
 .tooltip-container {
     position: absolute;
     background-color: #333;

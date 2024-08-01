@@ -25,5 +25,8 @@ export const translatedTexts = [
     {en: 'Yes.', hu: 'Igen.'},
     {en: 'No.', hu: 'Nem.'},
     {en: "The model is not responding. Proceed with another question.", hu: "A modell nem válaszol. Folytasd egy másik kérdéssel."},
-    {en: "The model is not responding. Please, try again.", hu: "A modell nem válaszol. Kérlek, próbáld újra."}
+    {en: "The model is not responding. Please, try again.", hu: "A modell nem válaszol. Kérlek, próbáld újra."},
+    {en: 'Competition', hu: 'Verseny'},
+    {en: 'Player', hu: 'Játékos'},
+    {en: 'Solution', hu: 'Megoldás'},
 ]

@@ -1,0 +1,36 @@
+<div class="header">
+    <img src="../../assets/icons8-home-50.png" alt="" class="home-icon" (click)="homeButtonClicked()">
+    <span class="header-txt"> Leaderboard </span>
+    <select class="lang-select" tabindex="-1" (change)="setLanguage($event)">
+        <option value="en" [selected]="selectedLanguage === 'en'">en</option>
+        <option value="hu" [selected]="selectedLanguage === 'hu'">hu</option>
+    </select>
+</div>
+
+<p class="board-subtitle">
+    {{translate('Competition')}}: {{competition}}
+</p>
+
+<div class="board-container">
+  
+  <div class="board-header">
+    <span class="header-player">{{translate('Player')}}</span>
+    <span class="header-solution">{{translate('Solution')}}</span>
+    <span class="header-count">#Q</span>
+  </div>  
+  @for (item of results; track $index) {
+    <div class="board-item">
+        <span class="board-player">
+            {{item.player}}
+        </span>
+        <span class="board-solution">
+            {{item.solution}}
+        </span>
+        <span class="board-count">
+            {{item.questionCount}}
+        </span>
+    </div>
+  }  
+    
+
+</div>

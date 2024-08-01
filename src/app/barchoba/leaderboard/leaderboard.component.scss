@@ -1,0 +1,152 @@
+// Variables for colors and spacing
+$primary-color: #256189;
+$secondary-color: gray;
+$background-color: #ecf0f1;
+$text-color: darkslategray;
+$border-radius: 8px;
+$spacing-unit: 12px;
+
+// Root styles
+:root {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+}
+
+$header-color: #256189;
+
+.header {
+    position: fixed;
+    top: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: $header-color;
+    color: white;
+    margin: 0;
+    padding: 0 8px;
+
+    .home-icon {
+        width: 25px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .header-placeholder {
+        width: 25px;
+    }
+
+    .header-txt {
+        margin-left: 15px;
+        font-weight: 800;
+        font-size: 20px;
+        text-align: center;
+        flex: 1;
+    }
+
+    .lang-select {
+        width: 40px;
+        margin-right: 20px;
+        color: black;
+        height: 25px;
+        background-color: whitesmoke;
+        border-radius: 4px;
+    }
+}
+
+
+.board-subtitle {
+    margin-top: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-unit;
+}
+
+// Board container styles
+.board-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-unit * 0.5;
+  background-color: $background-color;
+  padding: $spacing-unit;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba($secondary-color, 0.1);
+}
+
+// Board header styles
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-color;
+    color: white;
+    padding: $spacing-unit;
+    border-radius: $border-radius;
+    font-weight: bold;
+    height: 20px;
+}
+  
+// Header player and count styles
+.header-player {
+    font-size: 1.1rem;
+    width: 30%;
+    min-width: 120px;
+}
+.header-solution {
+    font-size: 1.1rem;
+    text-align: left;
+    width: calc(70% - 40px);
+}
+.header-count {
+    font-size: 1.1rem;
+    width: 40px;
+    text-align: right;
+}
+
+// Board item styles
+.board-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: $spacing-unit;
+  height: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba($secondary-color, 0.1);
+  transition: transform 0.2s;
+
+  &:hover {
+    background-color: lightcyan;
+  }
+}
+
+// Player name styles
+.board-player {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $primary-color;
+    width: 30%;
+    min-width: 120px;
+}
+
+.board-solution {
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text-color;
+  text-align: left;
+  width: calc(70% - 40px);
+}
+
+// Question count styles
+.board-count {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $primary-color;
+  width: 40px;
+  text-align: right;
+}

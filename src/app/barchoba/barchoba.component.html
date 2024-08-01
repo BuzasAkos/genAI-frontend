@@ -1,5 +1,7 @@
 <div class="header">
-    <img src="../../assets/icons8-home-50.png" alt="" class="home-icon" (click)="homeButtonClicked()">
+    <img src="../../assets/icons8-home-50.png" alt="" class="home-icon" (click)="homeButtonClicked()" 
+      *ngIf="status === 'completed' || status === 'exited'">
+    <span class="header-placeholder" *ngIf="status !== 'completed' && status !== 'exited'"></span>
     <span class="header-txt">{{translate('AI Barkochba Game')}}</span>
     <select class="lang-select" tabindex="-1" (change)="setLanguage($event)">
         <option value="en" [selected]="selectedLanguage === 'en'">en</option>
@@ -80,7 +82,7 @@
       </div>
     }
 
-    @if ((status === 'answered' || status === 'question') && chat.length > 2) {
+    @if ((status === 'answered' || status === 'question') && chat.length >= 2) {
       <div class="form-group-row">
         <button class="btn guess-button" (click)="loadGuessForm()">{{translate('Final Guess')}}</button>
         <span class="placeholder"></span>
@@ -91,7 +93,10 @@
     @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
       <div class="start-container">
         <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">{{translate('Start a New Game')}}</button>
+            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">{{translate('» Start a New Game')}}</button>
+        </div>
+        <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
+          <button class="btn leaderboard-button" [disabled]="showPopup" (click)="showBoard()">{{translate('Show Leaderboard')}}</button>
         </div>
         <div class="form-group-row" *ngIf="status === 'starting'">
             <h3>{{translate('Loading the Barkochba Game')}}  ...</h3>

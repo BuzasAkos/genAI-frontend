@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-barchoba',
@@ -23,7 +24,7 @@ export class BarchobaComponent implements OnInit {
   exitMsg: string = '';
   selectedLanguage: string;
   
-  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder) {
+  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
   }
 
@@ -226,6 +227,10 @@ export class BarchobaComponent implements OnInit {
     this.selectedLanguage = (event.target as HTMLSelectElement).value;
     this.barchobaService.setLanguage(this.selectedLanguage);
     console.log(this.barchobaService.getLanguage());
+  }
+
+  showBoard() {
+    this.router.navigateByUrl('barkochba/leaderboard');
   }
 
 }
