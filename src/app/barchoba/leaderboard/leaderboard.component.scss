@@ -3,7 +3,7 @@ $primary-color: #256189;
 $secondary-color: gray;
 $background-color: #ecf0f1;
 $text-color: darkslategray;
-$border-radius: 8px;
+$border-radius: 6px;
 $spacing-unit: 12px;
 
 // Root styles
@@ -149,4 +149,8 @@ $header-color: #256189;
   color: $primary-color;
   width: 40px;
   text-align: right;
+}
+
+.highlighted {
+    background-color: beige;
 }

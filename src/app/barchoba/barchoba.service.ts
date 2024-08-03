@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { translatedTexts } from './models/translated.texts';
 import { environment } from '../../environments/environment';
-import { timeout } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +112,16 @@ export class BarchobaService {
   getResults(competition: string) {
     const url = `${this.baseUrl}/barchoba/results/${competition}`;
     return this.http.get<any>(url);
+  }
+
+  saveResult(player: string, competition: string) {
+    const url = `${this.baseUrl}/barchoba/result`;
+    const payload = {
+      gameID: this.gameID, 
+      player: player, 
+      competition: competition
+    }
+    return this.http.patch<{message: string}>(url,payload);
   }
 
 }

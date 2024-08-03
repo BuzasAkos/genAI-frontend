@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrl: './leaderboard.component.scss'
+  styleUrl: './leaderboard.component.scss',
 })
 export class LeaderboardComponent implements OnInit {
 
   selectedLanguage: string;
   results: any[] = [];
   competition: string = 'test';
+  playerName: string = '';
 
   constructor(private barchobaService: BarchobaService, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
@@ -25,6 +26,8 @@ export class LeaderboardComponent implements OnInit {
     }, error: err => {
       console.error(err.error.message);
     }});
+    this.playerName = localStorage.getItem('barchobaPlayer') || '';
+    console.log(this.playerName);
   }
 
 

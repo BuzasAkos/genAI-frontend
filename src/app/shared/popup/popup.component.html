@@ -3,6 +3,7 @@
         <div class="popup-text">
             <span [innerHTML]="popupMessage"></span>
         </div>
+        
 
         @if (type === 'confirm') {
             <div class="form-group-row">
@@ -14,6 +15,20 @@
         @if (type === 'inform') {
             <div class="form-group-row">
                 <button class="btn primary-button" (click)="okClicked()">{{okLabel}}</button>
+            </div>
+        }
+
+        @if (type === 'instruct') {
+            <div class="form-group-row">
+                <input type="text" class="popup-input" placeholder="{{inputPlaceholder}}" [(ngModel)]="inputValue">
+            </div>
+            <div class="form-group-row">
+                <button class="btn primary-button" 
+                    (click)="submitClicked()" 
+                    [disabled]="inputValue.length < 1 || inputValue.length > 10">
+                    {{submitLabel}}
+                </button>
+                <button class="btn cancel-button" (click)="noClicked()">{{noLabel}}</button>
             </div>
         }
     </div>

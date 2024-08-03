@@ -35,6 +35,20 @@
 }
 
 <div class="form-containers">
+    
+    @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
+      <div class="start-container">
+        <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
+            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">» {{translate('Start a New Game')}}</button>
+        </div>
+        <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
+          <button class="btn leaderboard-button" [disabled]="showPopup" (click)="showBoard()">{{translate('Show Leaderboard')}}</button>
+        </div>
+        <div class="form-group-row" *ngIf="status === 'starting'">
+            <h3>{{translate('Loading the Barkochba Game')}}  ...</h3>
+        </div>
+      </div>
+    }
 
     @if (status === 'question' || status === 'sent' || status === 'answered') {
       <div class="question-form-container">
@@ -90,19 +104,7 @@
       </div>
     }
 
-    @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
-      <div class="start-container">
-        <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">{{translate('» Start a New Game')}}</button>
-        </div>
-        <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-          <button class="btn leaderboard-button" [disabled]="showPopup" (click)="showBoard()">{{translate('Show Leaderboard')}}</button>
-        </div>
-        <div class="form-group-row" *ngIf="status === 'starting'">
-            <h3>{{translate('Loading the Barkochba Game')}}  ...</h3>
-        </div>
-      </div>
-    }
+    
 
 </div>
 
@@ -132,8 +134,12 @@
         [popupMessage]="popupMessage" 
         [type]="popupType"
         [yesLabel]="translate('Yes')" 
-        [noLabel]="translate('No')" 
-        (response)="resolvePopup($event)">
+        [noLabel]="translate('Cancel')"
+        [submitLabel]="translate('Submit')"
+        [inputValue]="playerName"
+        [inputPlaceholder]="translate('3-10 characters')" 
+        (response)="resolvePopup($event)"
+        (userInput)="submitPlayer($event)">
     </app-popup>
 }
 

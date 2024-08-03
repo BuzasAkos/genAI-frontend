@@ -3,11 +3,13 @@ import { BarchobaService } from './barchoba.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { PopupComponent } from '../shared/popup/popup.component';
 
 @Component({
   selector: 'app-barchoba',
   templateUrl: './barchoba.component.html',
-  styleUrl: './barchoba.component.scss'
+  styleUrl: './barchoba.component.scss',
 })
 export class BarchobaComponent implements OnInit {
 
@@ -23,6 +25,8 @@ export class BarchobaComponent implements OnInit {
   showPopup: boolean = false;
   exitMsg: string = '';
   selectedLanguage: string;
+  playerName: string = '';
+  competition: string = 'test';
   
   constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
@@ -146,11 +150,13 @@ export class BarchobaComponent implements OnInit {
         this.status = "completed";
 
         if (successful) {
-          this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!` 
+          this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!`
+          this.showPopupInstruct();
         } else {
           this.answer = `${this.translate('The solution was')} ${solution}.`
+          this.showPopupInform();
         }
-        this.showPopupInform();
+        
       }, error: (err) => {
         console.log(err);
         if (err.name && err.name === 'TimeoutError') {
@@ -210,6 +216,14 @@ export class BarchobaComponent implements OnInit {
     this.showPopup = true;
   }
 
+  showPopupInstruct() {
+    this.popupMessage = `${this.answer} <br><br>` +
+      this.translate('Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard:');
+    this.popupType = 'instruct';
+    this.playerName = localStorage.getItem('barchobaPlayer') || '';
+    this.showPopup = true;
+  }
+
   hidePopUpMsg() {
     this.showPopup = false;
     this.popupMessage = '';
@@ -217,6 +231,26 @@ export class BarchobaComponent implements OnInit {
 
   resolvePopup(resp: string) {
     resp === 'yes' ? this.giveUpGame() : this.hidePopUpMsg();
+  }
+
+  submitPlayer(userInput: string) {
+    this.status = "guessed";
+    this.playerName = userInput;
+    localStorage.setItem('barchobaPlayer', this.playerName);
+    console.log(this.playerName);
+    this.barchobaService.saveResult(this.playerName, this.competition).subscribe({
+      next: (resp) => {
+        console.log(resp.message);
+        this.hidePopUpMsg();
+        this.status = "completed";
+      }, 
+      error: (err) => {
+        console.error(err);
+        this.hidePopUpMsg();
+        this.status = "completed";
+      }
+    });
+    
   }
 
   translate(txt: string): string {
