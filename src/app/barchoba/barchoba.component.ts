@@ -19,6 +19,7 @@ export class BarchobaComponent implements OnInit {
   questionForm!: FormGroup;
   guessForm!: FormGroup;
   answer: string = "";
+  solution: string = "";
   status: string = 'not started';
   popupMessage: string = '';
   popupType: string = '';
@@ -26,7 +27,7 @@ export class BarchobaComponent implements OnInit {
   exitMsg: string = '';
   selectedLanguage: string;
   playerName: string = '';
-  competition: string = 'test';
+  competition: string = '';
   
   constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
@@ -54,11 +55,26 @@ export class BarchobaComponent implements OnInit {
           this.exitGame();
           return;
         }
-        this.chat = this.barchobaService.buildChat(resp);
+        this.chat = this.barchobaService.buildChat(resp.chatHistory);
         this.answer = '';
-        this.status = 'question';
-        this.questionForm.reset()
-        this.questionForm.enable();
+        if (resp.active) {
+          this.status = 'question';
+          this.answer = '';
+          this.questionForm.reset()
+          this.questionForm.enable();
+          return;
+        } 
+        if (resp.successful) {
+          this.status = 'completed';
+          this.solution = resp.solution || '';
+          this.guessForm.disable();
+          const countQ = this.chat.length;
+          this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!`
+          return;
+        } 
+        this.exitGame();
+        return;
+      
       }, error: (err) => {
         console.log(err);
         this.exitGame();
@@ -72,6 +88,8 @@ export class BarchobaComponent implements OnInit {
       this.barchobaService.setGameID(resp.id);
       console.log(resp.id);
       this.answer = '';
+      this.solution = '';
+      this.competition = '';
       this.chat = [];
       this.status = 'question';
       this.questionForm.reset();
@@ -145,15 +163,17 @@ export class BarchobaComponent implements OnInit {
       this.status = "guessed";
       const guess = this.guessForm.value.guessInput;
       this.barchobaService.sendGuess(guess).subscribe({next: (resp) => {
-        const {solution, successful, countQ} = resp;
-        console.log(solution, successful, countQ);
+        const {solution, successful, countQ, competition} = resp;
+        console.log(solution, successful, countQ, competition);
+        this.solution = solution;
+        this.competition = competition || '';
         this.status = "completed";
 
         if (successful) {
           this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!`
-          this.showPopupInstruct();
+          competition ? this.showPopupInstruct(): this.showPopupInform();
         } else {
-          this.answer = `${this.translate('The solution was')} ${solution}.`
+          this.answer = `${this.translate('Sorry, your guess was not correct')}.`
           this.showPopupInform();
         }
         
@@ -176,7 +196,7 @@ export class BarchobaComponent implements OnInit {
     this.hidePopUpMsg();
     this.answer = "";
     this.status = 'exited';
-    this.barchobaService.sendGuess('').subscribe({next: (resp) => {
+    this.barchobaService.sendGuess('exit').subscribe({next: (resp) => {
       const {solution, successful, countQ} = resp;
       console.log(solution, successful, countQ);
       this.exitMsg = `${this.translate('You have exited the game')}. \n
@@ -192,6 +212,8 @@ export class BarchobaComponent implements OnInit {
     this.barchobaService.setGameID("");
     this.chat = [];
     this.status = 'not started';
+    this.solution = '';
+    this.competition = '';
     this.guessForm.reset();
     this.questionForm.reset();
   }
@@ -211,14 +233,14 @@ export class BarchobaComponent implements OnInit {
   }
 
   showPopupInform() {
-    this.popupMessage = this.answer;
+    this.popupMessage = `${this.answer} <br>The solution was <strong>${this.solution}</strong>`;
     this.popupType = 'inform';
     this.showPopup = true;
   }
 
   showPopupInstruct() {
     this.popupMessage = `${this.answer} <br><br>` +
-      this.translate('Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard:');
+      this.translate(`Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>:`);
     this.popupType = 'instruct';
     this.playerName = localStorage.getItem('barchobaPlayer') || '';
     this.showPopup = true;

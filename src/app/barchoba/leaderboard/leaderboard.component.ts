@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from '../barchoba.service';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-leaderboard',
@@ -13,6 +14,7 @@ export class LeaderboardComponent implements OnInit {
   results: any[] = [];
   competition: string = 'test';
   playerName: string = '';
+  showSpinner: boolean = false;
 
   constructor(private barchobaService: BarchobaService, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
@@ -20,18 +22,27 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('initialized');
-    this.barchobaService.getResults(this.competition).subscribe({next: resp => {
-      console.log(resp);
-      this.results = resp;
-    }, error: err => {
-      console.error(err.error.message);
-    }});
     this.playerName = localStorage.getItem('barchobaPlayer') || '';
     console.log(this.playerName);
+    this.getResultList();
+  }
+
+
+  getResultList() {
+    this.showSpinner = true;
+    this.barchobaService.getResults(this.competition).subscribe({next: resp => {
+      console.log(resp.length);
+      this.results = resp;
+      this.showSpinner = false;
+    }, error: err => {
+      console.error(err.error.message);
+      this.showSpinner = false;
+    }});
   }
 
 
   homeButtonClicked() {
+    this.barchobaService.setGameID("");
     this.router.navigateByUrl('barkochba');
   }
 

@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { translatedTexts } from './models/translated.texts';
+import { Barchoba } from './models/barchoba.model';
 import { environment } from '../../environments/environment';
 import { Observable, timeout } from 'rxjs';
+import { GuessAnswer } from './models/guess-answer.model';
+import { LeaderboardItem } from './models/leaderboard-item.model';
+import { Message } from './models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +62,12 @@ export class BarchobaService {
 
   getChatHistory() {
     const url = `${this.baseUrl}/barchoba/${this.gameID}`;
-    return this.http.get<any>(url);
+    return this.http.get<{
+      active: boolean, 
+      successful: boolean, 
+      solution?: string, 
+      chatHistory: {role: string, content: string}[]
+    }>(url);
   }
 
   buildChat(msg: {role: string, content: string}[]) {
@@ -79,12 +88,12 @@ export class BarchobaService {
 
   newGame() {
     const url = `${this.baseUrl}/barchoba/new`;
-    return this.http.post<any>(url,{}).pipe(timeout(40000));
+    return this.http.post<Barchoba>(url,{}).pipe(timeout(40000));
   }
 
   sendQuestion(question: string) {
     const url = `${this.baseUrl}/barchoba/ask`;
-    return this.http.post<any>(url, {
+    return this.http.post<Message>(url, {
       "gameID": this.gameID,
       "question": question
     }).pipe(timeout(25000));
@@ -92,7 +101,7 @@ export class BarchobaService {
 
   sendGuess(guess: string) {
     const url = `${this.baseUrl}/barchoba/guess`;
-    return this.http.post<any>(url, {
+    return this.http.post<GuessAnswer>(url, {
       "gameID": this.gameID,
       "question": guess
     }).pipe(timeout(25000));
@@ -111,7 +120,7 @@ export class BarchobaService {
 
   getResults(competition: string) {
     const url = `${this.baseUrl}/barchoba/results/${competition}`;
-    return this.http.get<any>(url);
+    return this.http.get<LeaderboardItem[]>(url);
   }
 
   saveResult(player: string, competition: string) {

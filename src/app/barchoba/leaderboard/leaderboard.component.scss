@@ -1,7 +1,7 @@
 // Variables for colors and spacing
 $primary-color: #256189;
 $secondary-color: gray;
-$background-color: #ecf0f1;
+$background-color: whitesmoke;
 $text-color: darkslategray;
 $border-radius: 6px;
 $spacing-unit: 12px;
@@ -64,14 +64,14 @@ $header-color: #256189;
     font-weight: bold;
     color: $primary-color;
     text-align: center;
-    margin-bottom: $spacing-unit;
+    margin-bottom: 10px;
 }
 
 // Board container styles
 .board-container {
   display: flex;
   flex-direction: column;
-  gap: $spacing-unit * 0.5;
+  gap: $spacing-unit * 0.75;
   background-color: $background-color;
   padding: $spacing-unit;
   border-radius: $border-radius;
@@ -117,7 +117,7 @@ $header-color: #256189;
   padding: $spacing-unit;
   height: 20px;
   border-radius: $border-radius;
-  box-shadow: 0 2px 4px rgba($secondary-color, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: transform 0.2s;
 
   &:hover {

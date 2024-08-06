@@ -19,7 +19,7 @@
     <span class="header-count">#Q</span>
   </div>  
   @for (item of results; track $index) {
-    <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'lightblue' : 'white'}">
+    <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'beige' : 'white'}">
         <span class="board-player">
             {{item.player}}
         </span>
@@ -30,7 +30,11 @@
             {{item.questionCount}}
         </span>
     </div>
-  }  
-    
+  }
 
 </div>
+
+
+@if (showSpinner) {
+    <app-spinner></app-spinner>
+}

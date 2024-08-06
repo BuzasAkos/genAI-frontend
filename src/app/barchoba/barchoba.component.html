@@ -73,10 +73,14 @@
     @if (status === 'guess' || status === 'guessed' || status === 'completed') {
       <div class="guess-form-container">
         <form [formGroup]="guessForm" (ngSubmit)="submitGuess()">
-            <div class="form-group-row">
+            <div class="form-group-row" *ngIf="status === 'guess' || status === 'guessed'">
                 <label for="guess" class="form-label">{{translate('Guess')}}:</label>
                 <input type="text" id="guess" class="form-input" formControlName="guessInput"
                         placeholder="{{translate('Enter the name')}}" value="">  
+            </div>
+            <div class="form-group-row" *ngIf="status === 'completed'">
+              <label for="solution" class="form-label">{{translate('Solution')}}:</label>
+              <span id="solution" class="form-answer guess-answer">{{solution}}</span>  
             </div>
             <div class="form-group-row">
                 <span class="form-label" *ngIf="status === 'guessed' || status === 'completed'">{{translate('Answer')}}:</span>
