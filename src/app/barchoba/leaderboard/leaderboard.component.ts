@@ -12,7 +12,7 @@ export class LeaderboardComponent implements OnInit {
 
   selectedLanguage: string;
   results: any[] = [];
-  competition: string = 'test';
+  competition: string = '';
   playerName: string = '';
   showSpinner: boolean = false;
 
@@ -30,9 +30,10 @@ export class LeaderboardComponent implements OnInit {
 
   getResultList() {
     this.showSpinner = true;
-    this.barchobaService.getResults(this.competition).subscribe({next: resp => {
-      console.log(resp.length);
-      this.results = resp;
+    this.barchobaService.getResults().subscribe({next: resp => {
+      console.log(resp);
+      this.competition = resp.competition;
+      this.results = resp.results; 
       this.showSpinner = false;
     }, error: err => {
       console.error(err.error.message);

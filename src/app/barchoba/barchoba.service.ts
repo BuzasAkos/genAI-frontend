@@ -118,9 +118,9 @@ export class BarchobaService {
     return txt;
   }
 
-  getResults(competition: string) {
-    const url = `${this.baseUrl}/barchoba/results/${competition}`;
-    return this.http.get<LeaderboardItem[]>(url);
+  getResults() {
+    const url = `${this.baseUrl}/barchoba/results`;
+    return this.http.get<{competition: string, results: LeaderboardItem[]}>(url);
   }
 
   saveResult(player: string, competition: string) {
