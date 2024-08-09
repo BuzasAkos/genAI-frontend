@@ -39,10 +39,10 @@
     @if (status === 'not started' || status === 'starting' || status === 'exited' || status === 'completed') {
       <div class="start-container">
         <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">» {{translate('Start a New Game')}}</button>
+            <button class="btn primary-button" [disabled]="showPopup" (click)="startGame()">» {{translate('Start New Game')}}</button>
         </div>
         <div class="form-group-row" *ngIf="status === 'not started' || status === 'exited' || status === 'completed'">
-          <button class="btn leaderboard-button" [disabled]="showPopup" (click)="showBoard()">{{translate('Show Leaderboard')}}</button>
+          <button class="btn leaderboard-button" [disabled]="showPopup" (click)="showBoard()">{{translate('Leaderboard')}}</button>
         </div>
         <div class="form-group-row" *ngIf="status === 'starting'">
             <h3>{{translate('Loading the Barkochba Game')}}  ...</h3>
