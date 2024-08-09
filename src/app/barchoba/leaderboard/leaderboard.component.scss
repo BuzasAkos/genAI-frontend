@@ -89,6 +89,14 @@ $header-color: #256189;
   box-shadow: 0 4px 8px rgba($secondary-color, 0.1);
 }
 
+// Info label
+.info-label {
+    color: $primary-color;
+    font-size: 12px;
+    text-align: center;
+    margin-left: 10px;
+}
+
 // Board header styles
 .board-header {
     display: flex;

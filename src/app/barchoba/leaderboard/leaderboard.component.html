@@ -13,11 +13,21 @@
 
 <div class="board-container">
   
-  <div class="board-header">
-    <span class="header-player">{{translate('Player')}}</span>
-    <span class="header-solution">{{translate('Solution')}}</span>
-    <span class="header-count">#Q</span>
-  </div>  
+    <div class="info-label">
+        <span *ngIf="results.length === 0">
+            {{translate('No games have been completed yet.')}}
+        </span>
+        <span *ngIf="results.length > 0">
+            {{results.length}} {{translate('successful games.')}}
+        </span>
+
+    </div>
+  
+    <div class="board-header" *ngIf="results.length > 0">
+        <span class="header-player">{{translate('Player')}}</span>
+        <span class="header-solution">{{translate('Solution')}}</span>
+        <span class="header-count">#Q</span>
+    </div>  
   @for (item of results; track $index) {
     <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'beige' : 'white'}">
         <span class="board-player">
