@@ -18,7 +18,7 @@
             {{translate('No games have been completed yet.')}}
         </span>
         <span *ngIf="results.length > 0">
-            {{results.length}} {{translate('successful games:')}}
+            <strong>{{results.length}}</strong> {{translate('successful games:')}}
         </span>
 
     </div>
