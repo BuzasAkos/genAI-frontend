@@ -84,7 +84,10 @@
             </div>
             <div class="form-group-row">
                 <span class="form-label" *ngIf="status === 'guessed' || status === 'completed'">{{translate('Answer')}}:</span>
-                <span class="form-answer guess-answer" *ngIf="status === 'guessed' || status === 'completed'">{{answer}}</span>
+                <span class="form-answer guess-answer" *ngIf="status === 'guessed' || status === 'completed'"
+                  [ngStyle]="{'color': successful ? 'darkgreen' : 'black'}">
+                  {{answer}}
+                </span>
                 <button type="submit" class="btn primary-button" [disabled]="guessForm.invalid" *ngIf="status === 'guess'">{{translate('Send')}} »</button>
                 <button class="btn cancel-button" (click)="resetForm()"  *ngIf="status === 'guess'">« {{translate('back to questions')}}</button>
             </div>
@@ -107,8 +110,6 @@
         <button class="btn exit-button" (click)="showPopupConfirm()">{{translate('I give up')}}</button>
       </div>
     }
-
-    
 
 </div>
 
@@ -140,6 +141,7 @@
         [yesLabel]="translate('Yes')" 
         [noLabel]="translate('Cancel')"
         [submitLabel]="translate('Submit')"
+        [inputLabel]="translate('Player:')"
         [inputValue]="playerName"
         [inputPlaceholder]="translate('3-10 characters')" 
         (response)="resolvePopup($event)"

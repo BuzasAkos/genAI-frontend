@@ -28,6 +28,8 @@ export class BarchobaComponent implements OnInit {
   selectedLanguage: string;
   playerName: string = '';
   competition: string = '';
+  successful: boolean = false;
+  resultSubmitted: boolean = false;
   
   constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
@@ -66,6 +68,7 @@ export class BarchobaComponent implements OnInit {
         } 
         if (resp.successful) {
           this.status = 'completed';
+          this.successful = true;
           this.solution = resp.solution || '';
           this.guessForm.disable();
           const countQ = this.chat.length;
@@ -90,6 +93,8 @@ export class BarchobaComponent implements OnInit {
       this.answer = '';
       this.solution = '';
       this.competition = '';
+      this.successful = false;
+      this.resultSubmitted = false;
       this.chat = [];
       this.status = 'question';
       this.questionForm.reset();
@@ -167,6 +172,7 @@ export class BarchobaComponent implements OnInit {
         console.log(solution, successful, countQ, competition);
         this.solution = solution;
         this.competition = competition || '';
+        this.successful = successful || false;
         this.status = "completed";
 
         if (successful) {
@@ -196,6 +202,7 @@ export class BarchobaComponent implements OnInit {
     this.hidePopUpMsg();
     this.answer = "";
     this.status = 'exited';
+    this.successful = false;
     this.barchobaService.sendGuess('exit').subscribe({next: (resp) => {
       const {solution, successful, countQ} = resp;
       console.log(solution, successful, countQ);
@@ -214,6 +221,8 @@ export class BarchobaComponent implements OnInit {
     this.status = 'not started';
     this.solution = '';
     this.competition = '';
+    this.successful = false;
+    this.resultSubmitted = false;
     this.guessForm.reset();
     this.questionForm.reset();
   }
@@ -239,8 +248,15 @@ export class BarchobaComponent implements OnInit {
   }
 
   showPopupInstruct() {
-    this.popupMessage = `${this.answer} <br><br>` +
-      this.translate(`Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>:`);
+    if (this.selectedLanguage === 'hu') {
+      this.popupMessage = `${this.answer} <br><br>` +
+      `Kérlek, írd be a <strong>(bece)neved</strong>, hogy közzétegyük az eredményed a <strong>${this.competition}</strong> eredménytábláján. 
+        <br><br> Nyomj cancelt, ha nem szeretnéd megosztani az eredményedet.`
+    } else {
+      this.popupMessage = `${this.answer} <br><br>` +
+      `Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>.
+        <br><br> Press cancel if you do not wish to share your result.` 
+    }
     this.popupType = 'instruct';
     this.playerName = localStorage.getItem('barchobaPlayer') || '';
     this.showPopup = true;
@@ -263,6 +279,7 @@ export class BarchobaComponent implements OnInit {
     this.barchobaService.saveResult(this.playerName, this.competition).subscribe({
       next: (resp) => {
         console.log(resp.message);
+        this.resultSubmitted = true;
         this.hidePopUpMsg();
         this.status = "completed";
       }, 

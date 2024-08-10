@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class PopupComponent {
   @Input() popupMessage: string = '';
   @Input() popupInstruction: string = '';
+  @Input() inputLabel: string = '';
   @Input() inputValue: string = '';
   @Input() inputPlaceholder: string = '';
   @Input() type: string = 'confirm';
