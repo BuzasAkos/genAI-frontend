@@ -5,5 +5,6 @@ export interface LeaderboardItem {
     started: Date,
     finished: Date,
     solution: string,
-    successful: boolean
+    successful: boolean,
+    position?: number
 }

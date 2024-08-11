@@ -30,6 +30,9 @@
     </div>  
   @for (item of results; track $index) {
     <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'cyan' : 'white'}">
+        <span class="board-position">
+            <span>{{item.position}}</span>
+        </span>
         <span class="board-player">
             {{item.player}}
         </span>

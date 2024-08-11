@@ -111,17 +111,18 @@ $header-color: #256189;
   
 // Header player and count styles
 .header-player {
-    font-size: 1.1rem;
+    margin-left: 28px;
+    font-size: 16px;
     width: 30%;
     min-width: 120px;
 }
 .header-solution {
-    font-size: 1.1rem;
+    font-size: 16px;
     text-align: left;
-    width: calc(70% - 40px);
+    width: calc(70% - 80px);
 }
 .header-count {
-    font-size: 1.1rem;
+    font-size: 16px;
     width: 40px;
     text-align: right;
 }
@@ -133,6 +134,7 @@ $header-color: #256189;
   align-items: center;
   background-color: white;
   padding: $spacing-unit;
+  padding-left: 0;
   height: 20px;
   border-radius: $border-radius;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -144,8 +146,25 @@ $header-color: #256189;
 }
 
 // Player name styles
+
+.board-position {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    color: white;
+    size: 15px;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .board-player {
-    font-size: 1.1rem;
+    font-size: 16px;
     font-weight: 700;
     color: $primary-color;
     width: 30%;
@@ -153,16 +172,16 @@ $header-color: #256189;
 }
 
 .board-solution {
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   color: $text-color;
   text-align: left;
-  width: calc(70% - 40px);
+  width: calc(70% - 80px);
 }
 
 // Question count styles
 .board-count {
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: 700;
   color: $primary-color;
   width: 40px;

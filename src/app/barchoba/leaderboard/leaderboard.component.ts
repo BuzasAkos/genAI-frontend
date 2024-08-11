@@ -33,7 +33,15 @@ export class LeaderboardComponent implements OnInit {
     this.barchobaService.getResults().subscribe({next: resp => {
       console.log(resp);
       this.competition = resp.competition;
-      this.results = resp.results; 
+      const results = resp.results;
+      let pos = 1;
+      let countQ = 0;
+      results.forEach((item, i) => {
+        item.position = item.questionCount > countQ ? i+1 : pos;
+        pos = item.position;
+        countQ = item.questionCount;
+      });
+      this.results = results;
       this.showSpinner = false;
     }, error: err => {
       console.error(err.error.message);
