@@ -107,8 +107,8 @@ $header-color: #256189;
 }
 
 .form-label {
-    width: 60px;
-    min-width: 60px;
+    width: 65px;
+    min-width: 65px;
     color: black;
 }
 
@@ -173,6 +173,13 @@ $header-color: #256189;
 
     .msg-gallery {
         font-size: 16px;
+    }
+
+    .question-counter {
+        font-size: 16px;
+        color: darkslateblue;
+        margin-top: 10px;
+        margin-left: 11px;
     }
 
 }

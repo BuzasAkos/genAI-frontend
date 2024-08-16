@@ -13,6 +13,7 @@ export class LeaderboardComponent implements OnInit {
   selectedLanguage: string;
   results: any[] = [];
   competition: string = '';
+  ongoing: boolean = false;
   playerName: string = '';
   showSpinner: boolean = false;
 
@@ -33,6 +34,7 @@ export class LeaderboardComponent implements OnInit {
     this.barchobaService.getResults().subscribe({next: resp => {
       console.log(resp);
       this.competition = resp.competition;
+      this.ongoing = resp.ongoing || false;
       const results = resp.results;
       let pos = 1;
       let countQ = 0;

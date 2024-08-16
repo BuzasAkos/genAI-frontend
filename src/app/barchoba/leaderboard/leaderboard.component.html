@@ -8,7 +8,8 @@
 </div>
 
 <p class="board-subtitle" *ngIf="competition">
-    {{translate('Competition')}}: {{competition}}
+    {{translate('Competition')}}: {{competition}} <span *ngIf="!ongoing">{{translate('(closed)')}}</span>
+    
 </p>
 
 <div class="board-container" *ngIf="!showSpinner">

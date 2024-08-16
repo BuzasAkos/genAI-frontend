@@ -116,6 +116,9 @@
 
 @if (status !== 'not started' && status !== 'starting') {
   <div class="chat-history" #chatHistory>
+    <div class="question-counter" *ngIf="chat.length > 0">
+        <span>{{translate('Number of Questions')}}: <strong>{{chat.length}}</strong></span>
+    </div>
     <div class="msg-gallery" *ngFor="let msg of chat">
         <div class="chat-round" 
         [ngStyle]="{'background-color': msg.answer.includes('Yes') || msg.answer.includes('Igen') ? 'beige' : 'white'}">

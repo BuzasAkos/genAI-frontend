@@ -120,7 +120,7 @@ export class BarchobaService {
 
   getResults() {
     const url = `${this.baseUrl}/barchoba/results`;
-    return this.http.get<{competition: string, results: LeaderboardItem[]}>(url);
+    return this.http.get<{competition: string, ongoing?: boolean, results: LeaderboardItem[]}>(url);
   }
 
   saveResult(player: string, competition: string) {

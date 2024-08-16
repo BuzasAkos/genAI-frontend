@@ -38,4 +38,6 @@ export const translatedTexts = [
     {en: 'No games have been completed yet.', hu: 'Nincs még befejezett játék.'},
     {en: '3-10 characters', hu: '3-10 karakter'},
     {en: 'Player:', hu: 'Játékos:'},
+    {en: 'Number of Questions', hu: 'Kérdések száma'},
+    {en: '(closed)', hu: '(lezárt)'},
 ]
