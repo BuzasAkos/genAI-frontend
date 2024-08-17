@@ -17,13 +17,15 @@
 <div class="board-container" *ngIf="!showSpinner">
   
     <div class="info-label">
-        <span *ngIf="results.length === 0">
+        <span *ngIf="!competition">
+            {{translate('Currently there is no competiion to show.')}}
+        </span>
+        <span *ngIf="results.length === 0" && competition>
             {{translate('No games have been completed yet.')}}
         </span>
         <span *ngIf="results.length > 0">
             <strong>{{results.length}}</strong> {{translate('successful games:')}}
         </span>
-
     </div>
   
     <div class="board-header" *ngIf="results.length > 0">
