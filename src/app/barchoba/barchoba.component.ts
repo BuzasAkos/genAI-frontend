@@ -242,7 +242,7 @@ export class BarchobaComponent implements OnInit {
   }
 
   showPopupInform() {
-    this.popupMessage = `${this.answer} <br>The solution was <strong>${this.solution}</strong>`;
+    this.popupMessage = `${this.answer} <br>${this.translate('The solution was')} <strong>${this.solution}</strong>`;
     this.popupType = 'inform';
     this.showPopup = true;
   }

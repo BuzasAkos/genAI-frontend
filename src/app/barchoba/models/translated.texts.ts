@@ -34,6 +34,7 @@ export const translatedTexts = [
     {en: 'Competition', hu: 'Verseny'},
     {en: 'Player', hu: 'Játékos'},
     {en: 'Solution', hu: 'Megoldás'},
+    {en: 'The solution was', hu: 'A megfejtés'},
     {en: 'successful games:', hu: 'sikeres játék:'},
     {en: 'No games have been completed yet.', hu: 'Nincs még befejezett játék.'},
     {en: '3-10 characters', hu: '3-10 karakter'},
