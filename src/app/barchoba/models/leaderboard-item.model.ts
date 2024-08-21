@@ -4,6 +4,7 @@ export interface LeaderboardItem {
     questionCount: number,
     started: Date,
     finished: Date,
+    duration: number,
     solution: string,
     successful: boolean,
     position?: number

@@ -6,12 +6,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PopupComponent } from '../shared/popup/popup.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { DurationPipe } from './pipes/duration.pipe';
 
 
 @NgModule({
   declarations: [
     BarchobaComponent,
     LeaderboardComponent,
+    DurationPipe,
   ],
   imports: [
     CommonModule,

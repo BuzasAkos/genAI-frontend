@@ -5,6 +5,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { PopupComponent } from '../shared/popup/popup.component';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @Component({
   selector: 'app-barchoba',
@@ -28,10 +29,11 @@ export class BarchobaComponent implements OnInit {
   selectedLanguage: string;
   playerName: string = '';
   competition: string = '';
+  duration: number = 0;
   successful: boolean = false;
   resultSubmitted: boolean = false;
   
-  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router, private durationPipe: DurationPipe) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
   }
 
@@ -168,15 +170,16 @@ export class BarchobaComponent implements OnInit {
       this.status = "guessed";
       const guess = this.guessForm.value.guessInput;
       this.barchobaService.sendGuess(guess).subscribe({next: (resp) => {
-        const {solution, successful, countQ, competition} = resp;
-        console.log(solution, successful, countQ, competition);
+        const {solution, successful, countQ, competition, duration} = resp;
+        console.log(solution, successful, countQ, duration, competition);
         this.solution = solution;
         this.competition = competition || '';
         this.successful = successful || false;
+        this.duration = duration;
         this.status = "completed";
 
         if (successful) {
-          this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')} !!!`
+          this.answer = `${this.translate('Congrats, you solved it from')} ${countQ} ${this.translate('questions')}!`
           competition ? this.showPopupInstruct(): this.showPopupInform();
         } else {
           this.answer = `${this.translate('Sorry, your guess was not correct')}.`
@@ -249,11 +252,13 @@ export class BarchobaComponent implements OnInit {
 
   showPopupInstruct() {
     if (this.selectedLanguage === 'hu') {
-      this.popupMessage = `${this.answer} <br><br>` +
+      this.popupMessage = `${this.answer} <br>` +
+      `Játék hossza: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Kérlek, írd be a <strong>(bece)neved</strong>, hogy közzétegyük az eredményed a <strong>${this.competition}</strong> eredménytábláján. 
         <br><br> Nyomj cancelt, ha nem szeretnéd megosztani az eredményedet.`
     } else {
-      this.popupMessage = `${this.answer} <br><br>` +
+      this.popupMessage = `${this.answer} <br>` +
+      `Game duration: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>.
         <br><br> Press cancel if you do not wish to share your result.` 
     }
