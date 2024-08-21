@@ -32,6 +32,7 @@
         <span class="header-player">{{translate('Player')}}</span>
         <span class="header-solution">{{translate('Solution')}}</span>
         <span class="header-count">#Q</span>
+        <span class="header-duration">{{translate('Time')}}</span>
     </div>  
   @for (item of results; track $index) {
     <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'cyan' : 'white'}">
@@ -46,6 +47,9 @@
         </span>
         <span class="board-count">
             {{item.questionCount}}
+        </span>
+        <span class="board-duration">
+            {{item.duration | duration}}
         </span>
     </div>
   }

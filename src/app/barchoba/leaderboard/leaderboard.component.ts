@@ -36,12 +36,8 @@ export class LeaderboardComponent implements OnInit {
       this.competition = resp.competition;
       this.ongoing = resp.ongoing || false;
       const results = resp.results;
-      let pos = 1;
-      let countQ = 0;
       results.forEach((item, i) => {
-        item.position = item.questionCount > countQ ? i+1 : pos;
-        pos = item.position;
-        countQ = item.questionCount;
+        item.position = i + 1;
       });
       this.results = results;
       this.showSpinner = false;

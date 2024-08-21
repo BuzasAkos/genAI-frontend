@@ -112,18 +112,23 @@ $header-color: #256189;
 // Header player and count styles
 .header-player {
     margin-left: 28px;
-    font-size: 16px;
+    font-size: 15px;
     width: 30%;
-    min-width: 120px;
+    min-width: 100px;
 }
 .header-solution {
-    font-size: 16px;
+    font-size: 15px;
     text-align: left;
-    width: calc(70% - 80px);
+    width: calc(70% - 110px);
 }
 .header-count {
-    font-size: 16px;
-    width: 40px;
+    font-size: 15px;
+    width: 30px;
+    text-align: right;
+}
+.header-duration {
+    font-size: 15px;
+    width: 50px;
     text-align: right;
 }
 
@@ -135,7 +140,7 @@ $header-color: #256189;
   background-color: white;
   padding: $spacing-unit;
   padding-left: 0;
-  height: 20px;
+  height: 25px;
   border-radius: $border-radius;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: transform 0.2s;
@@ -164,29 +169,37 @@ $header-color: #256189;
 }
 
 .board-player {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: $primary-color;
     width: 30%;
-    min-width: 120px;
+    min-width: 100px;
 }
 
 .board-solution {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: $text-color;
   text-align: left;
-  width: calc(70% - 80px);
+  width: calc(70% - 110px);
 }
 
-// Question count styles
 .board-count {
   font-size: 16px;
   font-weight: 700;
   color: $primary-color;
-  width: 40px;
+  width: 30px;
   text-align: right;
 }
+
+.board-duration {
+    font-size: 14px;
+    font-weight: normal;
+    color: gray;
+    width: 50px;
+    max-width: 50px;
+    text-align: right;
+  }
 
 .highlighted {
     background-color: beige;
