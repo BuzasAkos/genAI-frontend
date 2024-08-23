@@ -1,0 +1,36 @@
+<div class="admin-header">
+    Barkochba Admin Center
+</div>
+
+<div class="comp-list">
+    <div class="comp-item" *ngFor="let comp of competitions">
+        <div class="comp-item-name">
+            <span>{{ comp.competitionName }}</span>
+        </div>
+        <div class="comp-item-state">
+            <span class="ongoing-label" *ngIf="comp.ongoing"> ongoing </span>
+            <span class="board-label" *ngIf="comp.showBoard"> board </span>
+        </div>
+        <div class="form-group-row">
+            <button class="btn primary-button" *ngIf="!comp.ongoing && !isThereOngoing" (click)="startCompetition(comp.id)">Start</button>
+            <button class="btn cancel-button" *ngIf="comp.ongoing" (click)="closeCompetition(comp.id)">Close</button>
+            <button class="btn guess-button" *ngIf="!comp.showBoard && !isThereOngoing" (click)="showCompetition(comp.id)">Show</button>
+            <button class="btn exit-button" *ngIf="comp.showBoard && !isThereOngoing" (click)="hideCompetition(comp.id)">Hide</button>
+        </div>
+    </div>
+</div>
+
+<form class="new-comp-form" *ngIf="showNewCompForm" [formGroup]="newCompForm" (ngSubmit)="newCompSubmitted()">
+    <div class="form-group-row">
+        <span class="form-label">Competition Name:</span>
+        <input type="text" class="form-input" formControlName="newCompInput" [defaultValue]="">
+    </div>
+    <div class="form-group-row">
+        <button class="btn primary-button" type="submit" [disabled]="!newCompForm.valid">Create</button>
+        <button class="btn cancel-button" type="cancel" (click)="cancelNewClicked()">Cancel</button>
+    </div>
+</form>
+
+<div class="form-group-row" *ngIf="!showNewCompForm">
+    <button class="btn guess-button" (click)="newCompBtnClicked()">New Competition</button>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarchobaService } from '../barchoba.service';
 import { Router } from '@angular/router';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { LeaderboardItem } from '../models/leaderboard-item.model';
 
 @Component({
   selector: 'app-leaderboard',
@@ -11,7 +12,7 @@ import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 export class LeaderboardComponent implements OnInit {
 
   selectedLanguage: string;
-  results: any[] = [];
+  results: LeaderboardItem[] = [];
   competition: string = '';
   ongoing: boolean = false;
   playerName: string = '';
@@ -36,9 +37,6 @@ export class LeaderboardComponent implements OnInit {
       this.competition = resp.competition;
       this.ongoing = resp.ongoing || false;
       const results = resp.results;
-      results.forEach((item, i) => {
-        item.position = i + 1;
-      });
       this.results = results;
       this.showSpinner = false;
     }, error: err => {
