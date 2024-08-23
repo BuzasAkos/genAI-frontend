@@ -7,6 +7,7 @@ import { Observable, timeout } from 'rxjs';
 import { GuessAnswer } from './models/guess-answer.model';
 import { LeaderboardItem } from './models/leaderboard-item.model';
 import { Message } from './models/message.model';
+import { Competition } from './models/competition.model';
 
 @Injectable({
   providedIn: 'root'
@@ -132,5 +133,37 @@ export class BarchobaService {
     }
     return this.http.patch<{message: string}>(url,payload);
   }
+
+  getCompetitionList() {
+    const url = `${this.baseUrl}/barchoba/competitions/all`;
+    return this.http.get<Competition[]>(url);
+  }
+
+  startCompetition(id: string) {
+    const url = `${this.baseUrl}/barchoba/competition/start/${id}`;
+    return this.http.patch<Competition>(url, null);
+  }
+
+  closeCompetition(id: string) {
+    const url = `${this.baseUrl}/barchoba/competition/close/${id}`;
+    return this.http.patch<Competition>(url, null);
+  }
+
+  showCompetition(id: string) {
+    const url = `${this.baseUrl}/barchoba/competition/show/${id}`;
+    return this.http.patch<Competition>(url, null);
+  }
+
+  hideCompetition(id: string) {
+    const url = `${this.baseUrl}/barchoba/competition/hide/${id}`;
+    return this.http.patch<Competition>(url, null);
+  }
+
+  createCompetition(competitionName: string) {
+    const url = `${this.baseUrl}/barchoba/competition`;
+    const payload = { competitionName }
+    return this.http.post(url, payload);
+  }
+
 
 }

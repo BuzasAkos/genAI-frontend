@@ -20,7 +20,7 @@
         <span *ngIf="!competition">
             {{translate('Currently there is no competiion to show.')}}
         </span>
-        <span *ngIf="results.length === 0" && competition>
+        <span *ngIf="results.length === 0 && competition">
             {{translate('No games have been completed yet.')}}
         </span>
         <span *ngIf="results.length > 0">
@@ -37,7 +37,7 @@
   @for (item of results; track $index) {
     <div class="board-item" [ngStyle]="{'background-color': item.player === playerName ? 'cyan' : 'white'}">
         <span class="board-position">
-            <span>{{item.position}}</span>
+            <span>{{$index + 1}}</span>
         </span>
         <span class="board-player">
             {{item.player}}
