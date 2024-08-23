@@ -15,7 +15,7 @@ $secondary-color: gray;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    min-width: 330px;
+    min-width: 250px;
     margin: 20px 0;
 }
 
@@ -24,15 +24,16 @@ $secondary-color: gray;
     max-width: 600px;
     border-radius: 8px;
     border: solid;
-    border-color: lightblue;
-    box-shadow: 0 4px 8px rgba($secondary-color, 0.1);
+    border-color: lightgray;
+    box-shadow: 0 4px 8px rgba($secondary-color, 0.3);
 }
 
 .comp-item-name {
     height: 30px;
     margin-top: 16px;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
+    color: darkslategray;
     text-align: center;
 }
 
@@ -67,8 +68,11 @@ $secondary-color: gray;
     padding-top: 10px;
 
     .form-input {
-        padding: 4px 8px;
+        padding: 6px 8px;
         border-radius: 4px;
+        flex: 1;
+        max-width: 160px;
+        min-width: 100px;
     }
 }
 

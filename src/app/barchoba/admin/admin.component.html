@@ -7,13 +7,13 @@
         <div class="comp-item-name">
             <span>{{ comp.competitionName }}</span>
         </div>
-        <div class="comp-item-state">
+        <div class="comp-item-state" *ngIf="comp.ongoing || comp.showBoard">
             <span class="ongoing-label" *ngIf="comp.ongoing"> ongoing </span>
             <span class="board-label" *ngIf="comp.showBoard"> board </span>
         </div>
         <div class="form-group-row">
             <button class="btn primary-button" *ngIf="!comp.ongoing && !isThereOngoing" (click)="startCompetition(comp.id)">Start</button>
-            <button class="btn cancel-button" *ngIf="comp.ongoing" (click)="closeCompetition(comp.id)">Close</button>
+            <button class="btn cancel-button" *ngIf="comp.ongoing" (click)="closeBtnClicked(comp.id)">Close</button>
             <button class="btn guess-button" *ngIf="!comp.showBoard && !isThereOngoing" (click)="showCompetition(comp.id)">Show</button>
             <button class="btn exit-button" *ngIf="comp.showBoard && !isThereOngoing" (click)="hideCompetition(comp.id)">Hide</button>
         </div>
@@ -34,3 +34,13 @@
 <div class="form-group-row" *ngIf="!showNewCompForm">
     <button class="btn guess-button" (click)="newCompBtnClicked()">New Competition</button>
 </div>
+
+@if (showPopup) {
+    <app-popup 
+        [popupMessage]="popupMessage" 
+        [type]="'confirm'"
+        [yesLabel]="'Close'" 
+        [noLabel]="'Cancel'"
+        (response)="resolvePopup($event)">
+    </app-popup>
+}

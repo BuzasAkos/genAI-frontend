@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarchobaService } from '../barchoba.service';
 import { Competition } from '../models/competition.model';
+import { PopupComponent } from '../../shared/popup/popup.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, PopupComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
@@ -15,7 +16,10 @@ export class AdminComponent implements OnInit {
 
   competitions: Competition[] = [];
   isThereOngoing: boolean = false;
+  ongoingCompId: string = "";
   showNewCompForm: boolean = false;
+  showPopup: boolean = false;
+  popupMessage: string = "";
   newCompForm!: FormGroup;
 
   constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder) { }
@@ -36,11 +40,14 @@ export class AdminComponent implements OnInit {
     this.barchobaService.getCompetitionList().subscribe({
       next: (response) => {
         this.competitions = response;
-        let ongoing = false;
+        let ongoing = "";
         this.competitions.forEach(item => {
-          if (item.ongoing) ongoing = true;
+          if (item.ongoing) {
+            ongoing = item.id;
+            this.ongoingCompId = item.id;
+          }
         });
-        this.isThereOngoing = ongoing ? true : false;
+        this.isThereOngoing = ongoing.length > 0 ? true : false;
       }, 
       error: (err) => {
         console.error(err);
@@ -59,6 +66,11 @@ export class AdminComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  closeBtnClicked(id: string) {
+    this.popupMessage = "Do you want to close the ongoing competition?"
+    this.showPopup = true;
   }
 
   closeCompetition(id: string) {
@@ -125,6 +137,11 @@ export class AdminComponent implements OnInit {
   cancelNewClicked() {
     this.newCompForm.disable();
     this.showNewCompForm = false;
+  }
+
+  resolvePopup(resp: string) {
+    if (resp === 'yes') this.closeCompetition(this.ongoingCompId);
+    this.showPopup = false;
   }
 
 
