@@ -31,7 +31,7 @@ export class BarchobaService {
   }
 
   setLanguage(lang: string) {
-    if (['en', 'hu'].includes(lang)) {
+    if (['en', 'hu', 'de'].includes(lang)) {
       this.language = lang;
       localStorage.setItem('barchobaLanguage', lang);
     }
@@ -40,7 +40,7 @@ export class BarchobaService {
   loadLanguage() {
     const lang = localStorage.getItem('barchobaLanguage');
     if (lang) {
-      ['en', 'hu'].includes(lang) ? this.language = lang : this.language = 'en';
+      ['en', 'hu', 'de'].includes(lang) ? this.language = lang : this.language = 'en';
     } else {
       this.language = 'en';
     }
@@ -115,6 +115,10 @@ export class BarchobaService {
     if (this.language === 'hu') {
       const trText = translatedTexts.find( item => item.en === txt);
       return trText ? trText.hu : txt;
+    }
+    if (this.language === 'de') {
+      const trText = translatedTexts.find( item => item.en === txt);
+      return trText ? trText.de : txt;
     }
     return txt;
   }
