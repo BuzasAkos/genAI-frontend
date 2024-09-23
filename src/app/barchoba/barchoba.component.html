@@ -6,6 +6,7 @@
     <select class="lang-select" tabindex="-1" (change)="setLanguage($event)">
         <option value="en" [selected]="selectedLanguage === 'en'">en</option>
         <option value="hu" [selected]="selectedLanguage === 'hu'">hu</option>
+        <option value="de" [selected]="selectedLanguage === 'de'">de</option>
     </select>
 </div>
 
@@ -25,6 +26,14 @@
             Élő vagy holt, valós vagy kitalált.
             Tegyél fel <strong>igen/nem kérdéseket</strong>, hogy kitaláld, ki ő. <br>
             Ha tudod a választ, kattints a <strong>Rákérdezek</strong> gombra és küldd el a megoldásodat.    
+        </span>
+      }
+      @if (selectedLanguage === 'de') {  
+        <span>
+            Ich denke an eine <strong>Person</strong>. <br> 
+            Lebendig oder tot, real oder imaginär.
+            Stelle <strong>Ja/Nein-Fragen</strong>, um herauszufinden, wer er/sie ist. <br>
+            Wenn du die Antwort weißt, klicke auf <strong>Letzter Tipp</strong> und sende mir deine Lösung.    
         </span>
       }
     </div>
