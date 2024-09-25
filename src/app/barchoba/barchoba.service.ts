@@ -17,7 +17,7 @@ export class BarchobaService {
   baseUrl = environment.backend_url;
   messages: {role: string, content: string}[] = []; 
   private gameID: string = "";
-  private language: string = "hu";
+  private language: string = "de";
 
   constructor(private http: HttpClient) { }
 
@@ -42,7 +42,7 @@ export class BarchobaService {
     if (lang) {
       ['en', 'hu', 'de'].includes(lang) ? this.language = lang : this.language = 'en';
     } else {
-      this.language = 'en';
+      this.language = 'de';
     }
     return this.language;
   }

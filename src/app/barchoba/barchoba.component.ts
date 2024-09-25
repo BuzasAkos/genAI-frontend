@@ -256,11 +256,18 @@ export class BarchobaComponent implements OnInit {
       `Játék hossza: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Kérlek, írd be a <strong>(bece)neved</strong>, hogy közzétegyük az eredményed a <strong>${this.competition}</strong> eredménytábláján. 
         <br><br> Nyomj cancelt, ha nem szeretnéd megosztani az eredményedet.`
-    } else {
+    }
+    if (this.selectedLanguage === 'de') {
       this.popupMessage = `${this.answer} <br>` +
       `Game duration: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>.
         <br><br> Press cancel if you do not wish to share your result.` 
+    } 
+    if (this.selectedLanguage === 'en') {
+      this.popupMessage = `${this.answer} <br>` +
+      `Spieldauer: ${this.durationPipe.transform(this.duration)} <br><br>` +
+      `Bitte gib <strong>deinen (Spitz-)Namen</strong> ein, um dein Ergebnis auf der Rangliste von <strong>${this.competition}</strong> zu veröffentlichen.
+        <br><br> Drücke Abbrechen, wenn du dein Ergebnis nicht teilen möchtest.` 
     }
     this.popupType = 'instruct';
     this.playerName = localStorage.getItem('barchobaPlayer') || '';
