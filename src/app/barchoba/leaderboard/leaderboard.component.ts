@@ -18,7 +18,7 @@ export class LeaderboardComponent implements OnInit {
   playerName: string = '';
   showSpinner: boolean = false;
 
-  constructor(private barchobaService: BarchobaService, private router: Router) {
+  constructor(protected barchobaService: BarchobaService, private router: Router) {
     this.selectedLanguage = this.barchobaService.loadLanguage();
   }
 
@@ -55,7 +55,7 @@ export class LeaderboardComponent implements OnInit {
   setLanguage(event: Event) {
     this.selectedLanguage = (event.target as HTMLSelectElement).value;
     this.barchobaService.setLanguage(this.selectedLanguage);
-    console.log(this.barchobaService.getLanguage());
+    console.log(this.barchobaService.language());
   }
 
 

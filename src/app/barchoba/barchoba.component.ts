@@ -26,15 +26,14 @@ export class BarchobaComponent implements OnInit {
   popupType: string = '';
   showPopup: boolean = false;
   exitMsg: string = '';
-  selectedLanguage: string;
   playerName: string = '';
   competition: string = '';
   duration: number = 0;
   successful: boolean = false;
   resultSubmitted: boolean = false;
   
-  constructor(private barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router, private durationPipe: DurationPipe) {
-    this.selectedLanguage = this.barchobaService.loadLanguage();
+  constructor(protected barchobaService: BarchobaService, private formBuilder: FormBuilder, private router: Router, private durationPipe: DurationPipe) {
+    this.barchobaService.loadLanguage();
   }
 
   ngOnInit(): void {
@@ -251,19 +250,19 @@ export class BarchobaComponent implements OnInit {
   }
 
   showPopupInstruct() {
-    if (this.selectedLanguage === 'hu') {
+    if (this.barchobaService.language() === 'hu') {
       this.popupMessage = `${this.answer} <br>` +
       `Játék hossza: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Kérlek, írd be a <strong>(bece)neved</strong>, hogy közzétegyük az eredményed a <strong>${this.competition}</strong> eredménytábláján. 
         <br><br> Nyomj cancelt, ha nem szeretnéd megosztani az eredményedet.`
     }
-    if (this.selectedLanguage === 'en') {
+    if (this.barchobaService.language() === 'en') {
       this.popupMessage = `${this.answer} <br>` +
       `Game duration: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Please, enter <strong>your (nick)name</strong> to post your result to the leaderboard of <strong>${this.competition}</strong>.
         <br><br> Press cancel if you do not wish to share your result.` 
     } 
-    if (this.selectedLanguage === 'de') {
+    if (this.barchobaService.language() === 'de') {
       this.popupMessage = `${this.answer} <br>` +
       `Spieldauer: ${this.durationPipe.transform(this.duration)} <br><br>` +
       `Bitte gib <strong>deinen (Spitz-)Namen</strong> ein, um dein Ergebnis auf der Rangliste von <strong>${this.competition}</strong> zu veröffentlichen.
@@ -309,9 +308,9 @@ export class BarchobaComponent implements OnInit {
   }
 
   setLanguage(event: Event) {
-    this.selectedLanguage = (event.target as HTMLSelectElement).value;
-    this.barchobaService.setLanguage(this.selectedLanguage);
-    console.log(this.barchobaService.getLanguage());
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
+    this.barchobaService.setLanguage(selectedLanguage);
+    console.log(this.barchobaService.language());
   }
 
   showBoard() {

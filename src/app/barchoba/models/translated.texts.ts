@@ -43,5 +43,6 @@ export const translatedTexts = [
     {en: 'Time', hu: 'Idő', de: 'Zeit'},
     {en: 'Number of Questions', hu: 'Kérdések száma', de: 'Fragenanzahl'},
     {en: '(closed)', hu: '(lezárt)', de: '(geschlossen)'},
-    {en: 'Currently there is no competiion to show.', hu: 'Jelenleg nincs megjeleníthető verseny.', de: 'Derzeit gibt es keinen Wettbewerb zu zeigen.'}
+    {en: 'Currently there is no competiion to show.', hu: 'Jelenleg nincs megjeleníthető verseny.', de: 'Derzeit gibt es keinen Wettbewerb zu zeigen.'},
+    {en: 'Developed by: Ákos Buzás', hu: 'Fejlesztette: Buzás Ákos', de:'Entwickelt von: Ákos Buzás'}
 ]

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { translatedTexts } from './models/translated.texts';
 import { Barchoba } from './models/barchoba.model';
@@ -17,7 +17,7 @@ export class BarchobaService {
   baseUrl = environment.backend_url;
   messages: {role: string, content: string}[] = []; 
   private gameID: string = "";
-  private language: string = "de";
+  language = signal<string>("en");
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +32,7 @@ export class BarchobaService {
 
   setLanguage(lang: string) {
     if (['en', 'hu', 'de'].includes(lang)) {
-      this.language = lang;
+      this.language.set(lang);
       localStorage.setItem('barchobaLanguage', lang);
     }
   }
@@ -40,15 +40,11 @@ export class BarchobaService {
   loadLanguage() {
     const lang = localStorage.getItem('barchobaLanguage');
     if (lang) {
-      ['en', 'hu', 'de'].includes(lang) ? this.language = lang : this.language = 'en';
+      ['en', 'hu', 'de'].includes(lang) ? this.language.set(lang): this.language.set('en');
     } else {
-      this.language = 'de';
+      this.language.set('en');
     }
-    return this.language;
-  }
-
-  getLanguage() {
-    return this.language;
+    return this.language();
   }
 
   checkCurrentGame(): boolean {
@@ -109,14 +105,14 @@ export class BarchobaService {
   }
 
   translator(txt: string) {
-    if (this.language === 'en') {
+    if (this.language() === 'en') {
       return txt;
     }
-    if (this.language === 'hu') {
+    if (this.language() === 'hu') {
       const trText = translatedTexts.find( item => item.en === txt);
       return trText ? trText.hu : txt;
     }
-    if (this.language === 'de') {
+    if (this.language() === 'de') {
       const trText = translatedTexts.find( item => item.en === txt);
       return trText ? trText.de : txt;
     }

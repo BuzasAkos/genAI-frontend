@@ -4,15 +4,15 @@
     <span class="header-placeholder" *ngIf="status !== 'completed' && status !== 'exited'"></span>
     <span class="header-txt">{{translate('AI Barkochba Game')}}</span>
     <select class="lang-select" tabindex="-1" (change)="setLanguage($event)">
-        <option value="en" [selected]="selectedLanguage === 'en'">en</option>
-        <option value="hu" [selected]="selectedLanguage === 'hu'">hu</option>
-        <option value="de" [selected]="selectedLanguage === 'de'">de</option>
+        <option value="en" [selected]="barchobaService.language() === 'en'">en</option>
+        <option value="hu" [selected]="barchobaService.language() === 'hu'">hu</option>
+        <option value="de" [selected]="barchobaService.language() === 'de'">de</option>
     </select>
 </div>
 
 @if (status === 'not started') {
     <div class="guide-text">
-      @if (selectedLanguage === 'en') {  
+      @if (barchobaService.language() === 'en') {  
         <span>
             I think of a <strong>person</strong>. <br> 
             Alive or dead, real or imaginary.
@@ -20,7 +20,7 @@
             If you know the answer, click on <strong>Final Guess</strong> and send me your solution.    
         </span>
       } 
-      @if (selectedLanguage === 'hu') {  
+      @if (barchobaService.language() === 'hu') {  
         <span>
             Gondoltam egy <strong>személyre</strong>. <br> 
             Élő vagy holt, valós vagy kitalált.
@@ -28,7 +28,7 @@
             Ha tudod a választ, kattints a <strong>Rákérdezek</strong> gombra és küldd el a megoldásodat.    
         </span>
       }
-      @if (selectedLanguage === 'de') {  
+      @if (barchobaService.language() === 'de') {  
         <span>
             Ich denke an eine <strong>Person</strong>. <br> 
             Lebendig oder tot, real oder imaginär. <br>
@@ -40,6 +40,10 @@
 
     <div class="home-image-container">
         <img src="../../assets/ovXAM3c.png" alt="" class="home-image">
+    </div>
+
+    <div class="info-banner">
+        <span>{{ translate('Developed by: Ákos Buzás') }}, 2024</span>
     </div>
 }
 
@@ -56,6 +60,7 @@
         <div class="form-group-row" *ngIf="status === 'starting'">
             <h3>{{translate('Loading the Barkochba Game')}}  ...</h3>
         </div>
+        
       </div>
     }
 
@@ -98,7 +103,7 @@
                   {{answer}}
                 </span>
                 <button type="submit" class="btn primary-button" [disabled]="guessForm.invalid" *ngIf="status === 'guess'">{{translate('Send')}} »</button>
-                <button class="btn cancel-button" (click)="resetForm()"  *ngIf="status === 'guess'">« {{translate('back to questions')}}</button>
+                <button class="btn cancel-button" (click)="resetForm()"  *ngIf="status === 'guess'">{{translate('back to questions')}}</button>
             </div>
         </form>
       </div>
