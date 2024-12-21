@@ -1,18 +1,21 @@
 <div class="home-button-container">
     <button class="btn cancel-button" (click)="onHomeClicked()">Back Home</button>
+    <button class="btn primary-button" (click)="initGame()">Reset Game</button>
 </div>
 
 <div class="board-container">
     <div class="gomoku-board">
         <div *ngFor="let row of board; let rowIndex = index" class="row">
-        <div
-            *ngFor="let cell of row; let colIndex = index"
-            class="cell"
-            [class.selectable]="!cell"
-            (click)="makeMove(rowIndex, colIndex)"
-        >
-            {{ cell }}
-        </div>
+            <div
+                *ngFor="let cell of row; let colIndex = index"
+                class="cell"
+                [class.selectable]="!cell && currentPlayer === humanMark"
+                [class.last]="isLastMoveCell(rowIndex, colIndex)"
+                [class.winner]="isWinningCell(rowIndex, colIndex)"
+                (click)="onCellClicked(rowIndex, colIndex)"
+            >
+                {{ cell }}
+            </div>
         </div>
     </div>
 </div>
