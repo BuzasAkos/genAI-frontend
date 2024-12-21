@@ -1,6 +1,45 @@
+$primary-color: #256189;
+
 .home-button-container {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     margin: 20px;
+}
+
+.board-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.gomoku-board {
+    display: grid;
+    grid-template-columns: repeat(25, 22px); /* 20px per cell */
+    grid-gap: 0px; 
+    width: fit-content;
+    height: fit-content;
+    background-color: lightblue;
+    padding: 4px 6px 4px 4px;
+}
+
+.row {
+    display: contents;
+}
+
+.cell {
+    width: 22px;
+    height: 20px;
+    color: $primary-color;
+    background-color: white;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 0;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+.cell:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
 }

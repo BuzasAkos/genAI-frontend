@@ -1,3 +1,17 @@
 <div class="home-button-container">
     <button class="btn cancel-button" (click)="onHomeClicked()">Back Home</button>
 </div>
+
+<div class="board-container">
+    <div class="gomoku-board">
+        <div *ngFor="let row of board; let rowIndex = index" class="row">
+        <div
+            *ngFor="let cell of row; let colIndex = index"
+            class="cell"
+            (click)="makeMove(rowIndex, colIndex)"
+        >
+            {{ cell }}
+        </div>
+        </div>
+    </div>
+</div>
