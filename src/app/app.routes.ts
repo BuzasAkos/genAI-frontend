@@ -5,6 +5,7 @@ import { LeaderboardComponent } from './barchoba/leaderboard/leaderboard.compone
 import { AdminComponent } from './barchoba/admin/admin.component';
 import { GomokuComponent } from './gomoku/gomoku.component';
 import { AmobaGameComponent } from './gomoku/amoba-game/amoba-game.component';
+import { AmobaScoresComponent } from './gomoku/amoba-scores/amoba-scores.component';
 
 export const routes: Routes = [
     { path: 'barkochba', component: BarchobaComponent, pathMatch: 'full' },
@@ -13,6 +14,6 @@ export const routes: Routes = [
     { path: 'hostess', component: HostessComponent },
     { path: 'gomoku', component: GomokuComponent },
     { path: 'gomoku/game', component: AmobaGameComponent },
-    { path: 'gomoku/board', component: AmobaGameComponent },
+    { path: 'gomoku/scores', component: AmobaScoresComponent },
     { path: '', redirectTo: '/barkochba', pathMatch: 'full' }
 ];

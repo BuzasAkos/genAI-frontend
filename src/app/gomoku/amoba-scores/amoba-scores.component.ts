@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-amoba-board',
+  selector: 'app-amoba-scores',
   standalone: true,
   imports: [],
-  templateUrl: './amoba-board.component.html',
-  styleUrl: './amoba-board.component.scss'
+  templateUrl: './amoba-scores.component.html',
+  styleUrl: './amoba-scores.component.scss'
 })
-export class AmobaBoardComponent implements OnInit {
+export class AmobaScoresComponent implements OnInit {
 
   constructor(private router: Router) {}
 

@@ -19,6 +19,10 @@ export class AmobaGameComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.initBoard();
+  }
+
+  initBoard() {
     this.board = Array.from({ length: 25 }, () =>
       Array.from({ length: 25 }, () => '')
     );
