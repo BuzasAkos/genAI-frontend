@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GomokuService } from '../gomoku.service';
+import { GomokuCell } from '../models/gomoku-game.model';
 
 @Component({
   selector: 'app-amoba-game',
@@ -18,8 +19,8 @@ export class AmobaGameComponent {
   humanMark: string = 'X';
   machineMark: string = 'O'
   currentPlayer: string = '';
-  winningSequence: {row: number, col: number}[] = [];
-  lastMove: {row: number, col: number}[] = [];
+  winningSequence: GomokuCell[] = [];
+  lastMove: GomokuCell[] = [];
 
   constructor(private router: Router, private gomokuService: GomokuService) {}
 
@@ -53,29 +54,32 @@ export class AmobaGameComponent {
   }
 
   move(row: number, col: number): void {
-    if (!this.board[row][col]) {
-      this.board[row][col] = this.currentPlayer;
-      this.lastMove.push({ row, col });
-      if (this.lastMove.length > 2) this.lastMove.shift();
-
-      const result = this.gomokuService.checkWinner(this.board);
-      if (result.winner) {
-        this.winningSequence = result.sequence;
-        this.closeGame(result.winner);
-        return;
+    this.board[row][col] = this.humanMark;
+    this.lastMove = [{row, col}];
+    this.currentPlayer = this.machineMark;
+    this.gomokuService.move(row, col).subscribe({
+      next: resp => {
+        const { machine, winner, sequence } = resp;
+        console.log(resp);
+        if (machine) {
+          this.board[machine.row][machine.col] = this.machineMark;
+          this.lastMove.push({ row: machine.row, col: machine.col });
+        }
+        if (winner) {
+          console.log(winner, 'won the game');
+          this.winningSequence = sequence!;
+          this.currentPlayer = '';
+          return;
+        }
+        this.currentPlayer = this.humanMark;
+      },
+      error: err => {
+        console.log(err);
       }
-
-      this.currentPlayer = this.currentPlayer === this.humanMark ? this.machineMark : this.humanMark;
-      if (this.currentPlayer === this.machineMark) {
-        this.invokeMachine();
-      }
-    }
+    });
   }
 
-  invokeMachine() {
-    const { row, col } = this.gomokuService.machineRndMove(this.board, this.machineMark);
-    this.move(row, col);
-  }
+  
 
   isWinningCell(row: number, col: number): boolean {
     return this.winningSequence.some(cell => cell.row === row && cell.col === col);

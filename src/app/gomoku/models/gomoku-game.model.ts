@@ -14,9 +14,13 @@ export interface GomokuGame {
 
   machineMark: string;
 
+  winner?: string;
+
   board: string[][]
 
   moves?: Array<GomokuMove>
+
+  sequence?: Array<GomokuCell>
 
 }
 
@@ -31,5 +35,13 @@ export interface GomokuMove {
   col: string;
 
   createdAt: Date;
+
+}
+
+export interface GomokuCell {
+
+    row: number;
+  
+    col: number;
 
 }

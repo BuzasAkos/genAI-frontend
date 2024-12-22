@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { GomokuGame } from './models/gomoku-game.model';
 import { Observable } from 'rxjs';
+import { MoveResponseDto } from './models/move-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,20 +23,13 @@ export class GomokuService {
     return this.http.post<GomokuGame>(url, payload);
   }
 
-  humanMove(row: number, col: number): Observable<GomokuGame> {
-    const id = this.gameId();
-    const url = `${this.baseUrl}/gomoku/move/human`;
-    const payload = { id, row, col }
-    return this.http.post<GomokuGame>(url, payload);
-  }
-
-  machineMove(row: number, col: number): Observable<GomokuGame> {
-    const id = this.gameId();
-    const url = `${this.baseUrl}/gomoku/move/machine`;
-    const payload = { id }
-    return this.http.post<GomokuGame>(url, payload);
+  move(row: number, col: number): Observable<MoveResponseDto> {
+    const url = `${this.baseUrl}/gomoku/move`;
+    const payload = { gameId: this.gameId(), human: {row, col} }
+    return this.http.post<MoveResponseDto>(url, payload);
   }
   
+  /*
   machineRndMove(board: string[][], machineMark: string): {row: number, col: number} {
       while (true) {
         const row = Math.floor(Math.random() * 25);
@@ -89,6 +83,6 @@ export class GomokuService {
   
     return { winner: '', sequence: [] }; // No winner yet
   }
-
+  */
 
 }
