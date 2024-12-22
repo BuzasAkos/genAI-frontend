@@ -28,12 +28,18 @@ export class AmobaGameComponent {
   }
 
   initGame() {
-    this.board = Array.from({ length: 25 }, () =>
-      Array.from({ length: 25 }, () => '')
-    );
     this.winningSequence = [];
     this.lastMove = [];
     this.currentPlayer = this.humanMark;
+    this.gomokuService.createGame(this.humanMark, this.machineMark).subscribe({
+      next: resp => {
+        this.board = resp.board;
+        this.gomokuService.gameId.set(resp._id);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
   onHomeClicked() {
@@ -67,7 +73,7 @@ export class AmobaGameComponent {
   }
 
   invokeMachine() {
-    const { row, col } = this.gomokuService.machineMove(this.board, this.machineMark);
+    const { row, col } = this.gomokuService.machineRndMove(this.board, this.machineMark);
     this.move(row, col);
   }
 

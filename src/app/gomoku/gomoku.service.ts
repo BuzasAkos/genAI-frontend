@@ -1,14 +1,42 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { GomokuGame } from './models/gomoku-game.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GomokuService {
 
+  baseUrl = environment.backend_url;
+
+  gameId = signal<string | undefined>(undefined);
+  
   constructor(private http: HttpClient) { }
 
-  machineMove(board: string[][], machineMark: string): {row: number, col: number} {
+  
+  createGame(humanMark: string, machineMark: string): Observable<GomokuGame> {
+    const url = `${this.baseUrl}/gomoku/game/new`;
+    const payload = { humanMark, machineMark }
+    return this.http.post<GomokuGame>(url, payload);
+  }
+
+  humanMove(row: number, col: number): Observable<GomokuGame> {
+    const id = this.gameId();
+    const url = `${this.baseUrl}/gomoku/move/human`;
+    const payload = { id, row, col }
+    return this.http.post<GomokuGame>(url, payload);
+  }
+
+  machineMove(row: number, col: number): Observable<GomokuGame> {
+    const id = this.gameId();
+    const url = `${this.baseUrl}/gomoku/move/machine`;
+    const payload = { id }
+    return this.http.post<GomokuGame>(url, payload);
+  }
+  
+  machineRndMove(board: string[][], machineMark: string): {row: number, col: number} {
       while (true) {
         const row = Math.floor(Math.random() * 25);
         const col = Math.floor(Math.random() * 25);
@@ -59,7 +87,8 @@ export class GomokuService {
       }
     }
   
-    return { winner: '', sequence: [] }; // No winner
+    return { winner: '', sequence: [] }; // No winner yet
   }
+
 
 }
