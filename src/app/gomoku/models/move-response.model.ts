@@ -4,7 +4,7 @@ export interface MoveResponseDto {
 
     machine?: GomokuCell;
 
-    winner?: string;
+    winner?: number;
 
     sequence?: GomokuCell[]
 

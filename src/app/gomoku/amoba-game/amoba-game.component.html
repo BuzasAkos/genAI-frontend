@@ -1,6 +1,6 @@
 <div class="home-button-container">
     <button class="btn cancel-button" (click)="onHomeClicked()">Back Home</button>
-    <button class="btn primary-button" (click)="initGame()">Reset Game</button>
+    <button class="btn primary-button" (click)="initGame()">Restart Game</button>
 </div>
 
 <div class="board-container">
@@ -9,12 +9,12 @@
             <div
                 *ngFor="let cell of row; let colIndex = index"
                 class="cell"
-                [class.selectable]="!cell && currentPlayer === humanMark"
+                [class.selectable]="!cell && currentPlayer === 1"
                 [class.last]="isLastMoveCell(rowIndex, colIndex)"
                 [class.winner]="isWinningCell(rowIndex, colIndex)"
                 (click)="onCellClicked(rowIndex, colIndex)"
             >
-                {{ cell }}
+                {{ displayCell(cell) }}
             </div>
         </div>
     </div>

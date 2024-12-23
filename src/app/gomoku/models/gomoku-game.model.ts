@@ -14,9 +14,9 @@ export interface GomokuGame {
 
   machineMark: string;
 
-  winner?: string;
+  winner?: number;
 
-  board: string[][]
+  board: number[][]
 
   moves?: Array<GomokuMove>
 
@@ -28,11 +28,11 @@ export interface GomokuMove {
   
   id: string;
 
-  mark: string;
+  mark: number;
 
-  row: string;
+  row: number;
 
-  col: string;
+  col: number;
 
   createdAt: Date;
 
