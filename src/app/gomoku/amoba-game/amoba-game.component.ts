@@ -36,6 +36,7 @@ export class AmobaGameComponent {
     }
     this.gomokuService.getGame(id).subscribe({
       next: resp => {
+        if (!resp.isActive) return this.initGame();
         this.gomokuService.gameId.set(resp._id);
         this.board = resp.board;
         this.winningSequence = [];
@@ -122,8 +123,8 @@ export class AmobaGameComponent {
     return this.lastMove.some(cell => cell.row === row && cell.col === col);
   }
 
-  closeGame(winner: string) {
-    console.log(winner, 'won!', this.winningSequence);
+  closeGame(winner: number) {
+    console.log(this.displayCell(winner), 'won!', this.winningSequence);
     this.currentPlayer = 0;
     this.gomokuService.gameId.set(undefined);
     localStorage.removeItem('gomokuGameId');
