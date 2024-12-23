@@ -96,10 +96,9 @@ export class AmobaGameComponent {
           this.lastMove.push({ row: machine.row, col: machine.col });
         }
         if (winner) {
-          console.log(winner, 'won the game');
           this.winningSequence = sequence!;
           this.currentPlayer = 0;
-          return;
+          return this.closeGame(winner);
         }
         this.currentPlayer = 1;
       },
@@ -124,8 +123,7 @@ export class AmobaGameComponent {
   }
 
   closeGame(winner: number) {
-    console.log(this.displayCell(winner), 'won!', this.winningSequence);
-    this.currentPlayer = 0;
+    console.log(this.displayCell(winner), 'won the game!');
     this.gomokuService.gameId.set(undefined);
     localStorage.removeItem('gomokuGameId');
   }
