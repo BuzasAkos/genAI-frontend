@@ -14,6 +14,8 @@ export interface GomokuGame {
 
   machineMark: string;
 
+  counter: number;
+
   winner?: number;
 
   board: number[][]
@@ -21,6 +23,8 @@ export interface GomokuGame {
   moves?: Array<GomokuMove>
 
   sequence?: Array<GomokuCell>
+
+  finishReason?: string;
 
 }
 

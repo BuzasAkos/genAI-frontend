@@ -1,6 +1,34 @@
-<div class="home-button-container">
-    <button class="btn cancel-button" (click)="onHomeClicked()">Back Home</button>
-    <button class="btn primary-button" (click)="initGame()">Restart Game</button>
+<div class="header">
+    <img 
+        *ngIf="gomokuService.gameState() !== 'ongoing'"
+        src="../../assets/icons8-home-50.png" alt="" 
+        class="home-icon" 
+        (click)="homeButtonClicked()"
+    >
+    <span class="header-placeholder"></span>
+    <span class="header-txt">{{ 'GoMoku Game' }}</span>
+    <select class="lang-select" tabindex="-1" (change)="gomokuService.setLanguage($event)">
+        <option value="en" [selected]="gomokuService.language() === 'en'">en</option>
+        <option value="hu" [selected]="gomokuService.language() === 'hu'">hu</option>
+        <option value="de" [selected]="gomokuService.language() === 'de'">de</option>
+    </select>
+</div>
+
+<div class="top-button-container">
+    <button class="btn primary-button" 
+        *ngIf="['standby', 'finished'].includes(gomokuService.gameState())" 
+        (click)="initGame()"
+        >Start a New Game
+    </button>
+    <button class="btn cancel-button" 
+        *ngIf="gomokuService.gameState() === 'ongoing'" 
+        (click)="cancelGame()"
+        >Cancel Game
+    </button>
+    <span class="top-placeholder"></span>
+    <span class="top-counter" *ngIf="['ongoing', 'finished'].includes(gomokuService.gameState())">
+        # moves: <strong>{{ countMoves }}</strong>
+    </span>
 </div>
 
 <div class="board-container">
@@ -10,6 +38,7 @@
                 *ngFor="let cell of row; let colIndex = index"
                 class="cell"
                 [class.selectable]="!cell && currentPlayer === 1"
+                [class.inactive]="gomokuService.gameState() === 'standby'"
                 [class.last]="isLastMoveCell(rowIndex, colIndex)"
                 [class.winner]="isWinningCell(rowIndex, colIndex)"
                 (click)="onCellClicked(rowIndex, colIndex)"

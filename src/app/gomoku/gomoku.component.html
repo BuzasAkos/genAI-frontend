@@ -1,9 +1,31 @@
+<div class="header">
+    <span class="header-placeholder"></span>
+    <span class="header-txt">{{ 'GoMoku Game' }}</span>
+    <select class="lang-select" tabindex="-1" (change)="gomokuService.setLanguage($event)">
+        <option value="en" [selected]="gomokuService.language() === 'en'">en</option>
+        <option value="hu" [selected]="gomokuService.language() === 'hu'">hu</option>
+        <option value="de" [selected]="gomokuService.language() === 'de'">de</option>
+    </select>
+</div>
+
 <h2>
     <div class="welcome-title">
-        <span>Welcome to the Go-moku game</span>
+        <span>Welcome to Go-moku !</span>
+    </div>
+    <div class="welcome-text">
+        <span>{{ 'Put 5 marks next to each other (horizontally, vertically or diagonally) to win the game' }}</span>
     </div>
 </h2>
 
 <div class="start-button-container">
-    <button class="btn primary-button" (click)="onStartClicked()">Play the Game</button>
+    <button class="btn primary-button" (click)="onStartClicked()">Open the Game</button>
 </div>
+
+<div class="img-container">
+    <img src="../../assets/gomoku.png" width="350" alt="">
+</div>
+
+<div class="info-banner">
+    <span>{{ 'Developed by: Ákos Buzás' }}, 2024</span>
+</div>
+

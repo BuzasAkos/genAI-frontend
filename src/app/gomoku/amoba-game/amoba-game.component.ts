@@ -21,24 +21,31 @@ export class AmobaGameComponent {
   currentPlayer: number = 0;
   winningSequence: GomokuCell[] = [];
   lastMove: GomokuCell[] = [];
+  countMoves: number = 0;
 
-  constructor(private router: Router, private gomokuService: GomokuService) {}
+  constructor(private router: Router, protected gomokuService: GomokuService) {}
 
   ngOnInit(): void { 
+    this.clearBoard();
     this.loadGame();
   }
 
   loadGame() {
     const id = this.gomokuService.gameId() ?? localStorage.getItem('gomokuGameId');
     if (!id || id === null) {
-      this.initGame();
+      this.gomokuService.gameState.set('standby');
       return;
     }
     this.gomokuService.getGame(id).subscribe({
       next: resp => {
-        if (!resp.isActive) return this.initGame();
+        if (!resp.isActive) {
+          this.gomokuService.gameState.set('standby');
+          return;
+        } 
         this.gomokuService.gameId.set(resp._id);
+        this.gomokuService.gameState.set('ongoing');
         this.board = resp.board;
+        this.countMoves = resp.counter;
         this.winningSequence = [];
         this.lastMove = [];
         const moveCount = resp.moves?.length || 0;
@@ -51,19 +58,20 @@ export class AmobaGameComponent {
       },
       error: err => {
         console.log(err);
-        this.initGame();
+        this.gomokuService.gameState.set('standby');
       }
     })
   }
 
   initGame() {
-    this.board = Array.from({ length: 25 }, () =>
-      Array.from({ length: 25 }, () => 0));
+    this.clearBoard();
     this.winningSequence = [];
     this.lastMove = [];
+    this.countMoves = 0;
     this.currentPlayer = 1;
     this.gomokuService.createGame(this.humanMark, this.machineMark).subscribe({
       next: resp => {
+        this.gomokuService.setState('ongoing');
         this.board = resp.board;
         this.gomokuService.gameId.set(resp._id);
         localStorage.setItem('gomokuGameId', resp._id);
@@ -87,6 +95,7 @@ export class AmobaGameComponent {
   move(row: number, col: number): void {
     this.board[row][col] = 1;
     this.lastMove = [{row, col}];
+    this.countMoves++;
     this.currentPlayer = 2;
     this.gomokuService.move(row, col).subscribe({
       next: resp => {
@@ -98,9 +107,12 @@ export class AmobaGameComponent {
         if (winner) {
           this.winningSequence = sequence!;
           this.currentPlayer = 0;
-          return this.closeGame(winner);
+          this.gomokuService.setState('finished');
+          console.log(this.displayCell(winner), 'won the game!');
+          this.closeGame();
+        } else {
+          this.currentPlayer = 1;
         }
-        this.currentPlayer = 1;
       },
       error: err => {
         console.log(err);
@@ -122,10 +134,34 @@ export class AmobaGameComponent {
     return this.lastMove.some(cell => cell.row === row && cell.col === col);
   }
 
-  closeGame(winner: number) {
-    console.log(this.displayCell(winner), 'won the game!');
+  closeGame() {
     this.gomokuService.gameId.set(undefined);
     localStorage.removeItem('gomokuGameId');
+  }
+
+  clearBoard() {
+    this.board = Array.from({ length: 25 }, () =>
+      Array.from({ length: 25 }, () => 0));
+    this.lastMove = [];
+    this.countMoves = 0;
+  }
+
+  homeButtonClicked() {
+    this.router.navigateByUrl('gomoku');
+  }
+
+  cancelGame() {
+    this.clearBoard();
+    this.currentPlayer = 0;
+    this.gomokuService.setState('finished');
+    this.gomokuService.cancelGame().subscribe({
+      next: resp => {
+        this.closeGame();
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
   }
 
 }

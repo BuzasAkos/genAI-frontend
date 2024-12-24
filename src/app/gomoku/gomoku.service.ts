@@ -13,6 +13,8 @@ export class GomokuService {
   baseUrl = environment.backend_url;
 
   gameId = signal<string | undefined>(undefined);
+  language = signal<string>('en');
+  gameState = signal<string>('standby');
   
   constructor(private http: HttpClient) { }
 
@@ -32,7 +34,21 @@ export class GomokuService {
     const payload = { gameId: this.gameId(), human: {row, col} }
     return this.http.post<MoveResponseDto>(url, payload);
   }
+
+  cancelGame() {
+    const url = `${this.baseUrl}/gomoku/cancel`;
+    const payload = { gameId: this.gameId() }
+    return this.http.patch<GomokuGame>(url, payload);
+  }
   
+  setLanguage(event: Event) {
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
+    this.language.set(selectedLanguage);
+  }
+
+  setState(state: string) {
+    this.gameState.set(state);
+  }
  
 
 }
