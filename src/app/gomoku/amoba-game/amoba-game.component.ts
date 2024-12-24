@@ -18,10 +18,12 @@ export class AmobaGameComponent {
   board: number[][] = [];
   humanMark: string = 'X';
   machineMark: string = 'O'
+  firstMove: string = 'human';
   currentPlayer: number = 0;
   winningSequence: GomokuCell[] = [];
   lastMove: GomokuCell[] = [];
   countMoves: number = 0;
+  popupState: number = 0;
 
   constructor(private router: Router, protected gomokuService: GomokuService) {}
 
@@ -69,7 +71,7 @@ export class AmobaGameComponent {
     this.lastMove = [];
     this.countMoves = 0;
     this.currentPlayer = 1;
-    this.gomokuService.createGame(this.humanMark, this.machineMark).subscribe({
+    this.gomokuService.createGame(this.humanMark, this.machineMark, this.firstMove).subscribe({
       next: resp => {
         this.gomokuService.setState('ongoing');
         this.board = resp.board;
@@ -153,7 +155,7 @@ export class AmobaGameComponent {
   cancelGame() {
     this.clearBoard();
     this.currentPlayer = 0;
-    this.gomokuService.setState('finished');
+    this.gomokuService.setState('standby');
     this.gomokuService.cancelGame().subscribe({
       next: resp => {
         this.closeGame();
@@ -162,6 +164,25 @@ export class AmobaGameComponent {
         console.log(err);
       }
     })
+  }
+
+  onSettingsClicked() {
+    this.popupState = 1;
+  }
+
+  setMarks(event: Event) {
+    const selectedMark = (event.target as HTMLSelectElement).value;
+    this.humanMark = selectedMark;
+    this.machineMark = selectedMark === 'X' ? 'O' : 'X';
+  }
+
+  setFirstMove(event: Event) {
+    const selectedRole = (event.target as HTMLSelectElement).value;
+    this.firstMove = selectedRole;
+  }
+
+  closeSettings() {
+    this.popupState = 0;
   }
 
 }

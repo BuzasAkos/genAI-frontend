@@ -16,7 +16,7 @@
 
 <div class="top-button-container">
     <button class="btn primary-button" 
-        *ngIf="['standby', 'finished'].includes(gomokuService.gameState())" 
+        *ngIf="gomokuService.gameState() !== 'ongoing'" 
         (click)="initGame()"
         >Start a New Game
     </button>
@@ -25,7 +25,14 @@
         (click)="cancelGame()"
         >Cancel Game
     </button>
+    <button class="btn leaderboard-button" 
+        *ngIf="gomokuService.gameState() !== 'ongoing'" 
+        (click)="onSettingsClicked()"
+        >Game Settings
+    </button>
+    
     <span class="top-placeholder"></span>
+    
     <span class="top-counter" *ngIf="['ongoing', 'finished'].includes(gomokuService.gameState())">
         # moves: <strong>{{ countMoves }}</strong>
     </span>
@@ -48,3 +55,35 @@
         </div>
     </div>
 </div>
+
+@if (popupState) {
+  <div class="popup-container">
+    <div class="popup-window">
+        @if (popupState === 1) {
+            <div class="popup-title">
+                <strong>Game settings</strong> 
+            </div>
+            <div class="setting-line">
+                <span>You play with this mark: </span>
+                <select class="mark-select" (change)="setMarks($event)">
+                    <option value="X" [selected]="humanMark === 'X'">X</option>
+                    <option value="O" [selected]="humanMark === 'O'">O</option>
+                </select>
+            </div>
+            <div class="setting-line">
+                <span>Who starts the game: </span>
+                <select class="mark-select" (change)="setFirstMove($event)">
+                    <option value="human" [selected]="firstMove === 'human'">human</option>
+                    <option value="machine" [selected]="firstMove === 'machine'">machine</option>
+                </select>
+            </div>
+            <div class="button-row">
+                <button class="btn cancel-button" 
+                    (click)="closeSettings()"
+                    >Close
+                </button>
+            </div>
+        }
+    </div>
+  </div>  
+}

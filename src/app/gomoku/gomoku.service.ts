@@ -23,9 +23,9 @@ export class GomokuService {
     return this.http.get<GomokuGame>(url);
   }
   
-  createGame(humanMark: string, machineMark: string): Observable<GomokuGame> {
+  createGame(humanMark: string, machineMark: string, firstMove: string): Observable<GomokuGame> {
     const url = `${this.baseUrl}/gomoku/game/new`;
-    const payload = { humanMark, machineMark }
+    const payload = { humanMark, machineMark, firstMove }
     return this.http.post<GomokuGame>(url, payload);
   }
 
