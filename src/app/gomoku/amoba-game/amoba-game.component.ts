@@ -50,6 +50,8 @@ export class AmobaGameComponent {
         this.countMoves = resp.counter;
         this.winningSequence = [];
         this.lastMove = [];
+        this.humanMark = resp.humanMark;
+        this.machineMark = resp.machineMark;
         const moveCount = resp.moves?.length || 0;
         if (resp.moves && moveCount > 0) {
           console.log(moveCount, resp.moves[moveCount - 1]);
